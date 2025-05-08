@@ -7,8 +7,8 @@
     <ProjectGuid>{131A592A-F395-4291-ACC1-3203C8EA4D0D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HelloWorld</RootNamespace>
-    <AssemblyName>HelloWorld</AssemblyName>
+    <RootNamespace>ExyteAddins</RootNamespace>
+    <AssemblyName>ExyteAddins</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

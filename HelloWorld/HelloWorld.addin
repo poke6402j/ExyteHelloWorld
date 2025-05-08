@@ -2,8 +2,8 @@
 <RevitAddIns>
   <AddIn Type="Command">
     <Name>HelloWorld</Name>
-    <Assembly>HelloWorld.dll</Assembly>
-    <FullClassName>HelloWorld.HelloWorld</FullClassName>
+    <Assembly>ExyteAddins.dll</Assembly>
+    <FullClassName>ExyteAddins.HelloWorld</FullClassName>
     <VisibilityMode>AlwaysVisible</VisibilityMode>
     <VendorId>ADSK</VendorId>
     <VendorDescription>Autodesk, www.autodesk.com</VendorDescription>

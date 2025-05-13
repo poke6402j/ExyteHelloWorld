@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>ExyteButtonTwo</Name>
+    <Assembly>ExyteAddins.dll</Assembly>
+    <FullClassName>ExyteAddins.ExyteButton2.ExyteButtonTwo</FullClassName>
+    <VisibilityMode>AlwaysVisible</VisibilityMode>
+    <VendorId>ADSK</VendorId>
+    <VendorDescription>Autodesk, www.autodesk.com</VendorDescription>
+    <AddInId>28dfe982-8436-4e32-9173-87cdb433487a</AddInId>
+  </AddIn>
+</RevitAddIns>

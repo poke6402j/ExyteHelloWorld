@@ -19,10 +19,12 @@ namespace ExyteAddins.ExyteButton2
     {
         public Result OnStartup(UIControlledApplication application)
         {
-            string TabName = "Exyte Addins";
+            //定義功能頁籤
+            string TabName = "Exyte Addins"; 
             application.CreateRibbonTab(TabName);
 
-            RibbonPanel panel02 = application.CreateRibbonPanel(TabName, "Exyte No.2"); //設定功能面板
+            //設定功能面板並加入功能頁籤
+            RibbonPanel panel02 = application.CreateRibbonPanel(TabName, "Exyte No.2"); 
 
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location; //取得主程式(.dll)路徑
             string NamespaceName02 = "ExyteAddins"; //命名空間名稱

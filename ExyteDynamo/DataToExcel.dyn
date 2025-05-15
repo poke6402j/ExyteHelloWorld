@@ -69,8 +69,8 @@
     },
     {
       "ConcreteType": "DSRevitNodesUI.Categories, DSRevitNodesUI",
-      "SelectedIndex": 294,
-      "SelectedString": "OST_LightingFixtures",
+      "SelectedIndex": 344,
+      "SelectedString": "OST_MechanicalEquipment",
       "Id": "f8da3cbff82249eaa92888df95bbc953",
       "NodeType": "ExtensionNode",
       "Inputs": [],
@@ -897,7 +897,7 @@
       "NodeType": "CodeBlockNode",
       "Inputs": [
         {
-          "Id": "0eefd32f83e4437a9afd91a940fdb53a",
+          "Id": "a5d2784f8aa04859958a2ffd4725226b",
           "Name": "D",
           "Description": "D",
           "UsingDefaultValue": false,
@@ -908,7 +908,7 @@
       ],
       "Outputs": [
         {
-          "Id": "9a6fd8de6eb5412eb7ec4c5037b9d58d",
+          "Id": "e8dedec7e48c4de0a055a65ebc25fbb4",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -919,7 +919,7 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly",
-      "Code": "D + \"/data.xlsx\";"
+      "Code": "D + \"/equ_room_data.xlsx\";"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1187,14 +1187,14 @@
     },
     {
       "Start": "b0f2472a01ea44e29c48f2be400371ab",
-      "End": "0eefd32f83e4437a9afd91a940fdb53a",
-      "Id": "529bb2703a924c4196bb1c9a9a785716",
+      "End": "a5d2784f8aa04859958a2ffd4725226b",
+      "Id": "5f3f7b7306004103b642b60e09bc0362",
       "IsHidden": "False"
     },
     {
-      "Start": "9a6fd8de6eb5412eb7ec4c5037b9d58d",
+      "Start": "e8dedec7e48c4de0a055a65ebc25fbb4",
       "End": "5c44d46675e84a9bb8e45803255ae387",
-      "Id": "8106debabdea478ea067963b73a6ca1b",
+      "Id": "abcd4a1037224971a5292d4c0e91fb04",
       "IsHidden": "False"
     },
     {
@@ -1267,15 +1267,15 @@
     },
     "Camera": {
       "Name": "_Background Preview",
-      "EyeX": 51834.898637635633,
-      "EyeY": 21590.295836059842,
-      "EyeZ": 23194.103952916339,
-      "LookX": -49845.3984375,
-      "LookY": -28327.37890625,
-      "LookZ": -34501.05859375,
-      "UpX": -0.1803029328584671,
-      "UpY": 0.97566193342208862,
-      "UpZ": -0.12479887157678604
+      "EyeX": 78211.7917928882,
+      "EyeY": 45505.7043471979,
+      "EyeZ": 40163.293107463047,
+      "LookX": -54935.8203125,
+      "LookY": -47077.09375,
+      "LookZ": -41431.37890625,
+      "UpX": -0.29908621311187744,
+      "UpY": 0.92718297243118286,
+      "UpZ": -0.22556397318840027
     },
     "ConnectorPins": [],
     "NodeViews": [
@@ -1344,7 +1344,7 @@
         "Name": "Element.Solids",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
+        "Excluded": true,
         "ShowGeometry": true,
         "X": 3156.2904461679686,
         "Y": 1794.0428153856647
@@ -1384,7 +1384,7 @@
         "Name": "Element.Solids",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
+        "Excluded": true,
         "ShowGeometry": true,
         "X": 3156.2904461679686,
         "Y": 1941.0428153856647
@@ -1581,8 +1581,8 @@
       }
     ],
     "Annotations": [],
-    "X": -415.27255493876123,
-    "Y": -122.27266084563666,
-    "Zoom": 0.3524677362308436
+    "X": -2554.7079898535221,
+    "Y": 93.4177119731213,
+    "Zoom": 0.6780503323009982
   }
 }

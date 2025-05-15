@@ -18,7 +18,7 @@ namespace ExyteAddins //命名空間
         {
             string whoIAm = "ExyteBIM"; //視窗Title
 
-            string wordToSay = "Hello Bruce"; //訊息內容
+            string wordToSay = "Hello Joe"; //訊息內容
 
             TaskDialog.Show(whoIAm, wordToSay); //呼叫TaskDialog對話框
 

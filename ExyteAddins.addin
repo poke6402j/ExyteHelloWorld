@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <RevitAddIns>
   <AddIn Type="Command">
     <Name>HelloWorld</Name>
@@ -7,6 +7,6 @@
     <VisibilityMode>AlwaysVisible</VisibilityMode>
     <VendorId>ADSK</VendorId>
     <VendorDescription>Autodesk, www.autodesk.com</VendorDescription>
-    <AddInId>02d663c9-9dd0-43b7-a4ef-8d0120838dcb</AddInId>
+    <AddInId>02d663c9-9dd0-43b7-a777-8d0120838dcb</AddInId>
   </AddIn>
 </RevitAddIns>

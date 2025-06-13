@@ -1,0 +1,1841 @@
+{
+  "Uuid": "716f3905-d38d-4a79-86d6-7d6d88044326",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "AutoRefreshDrawingInfo",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Id": "a1134277652f4ebab753a5c29ab6bb54",
+      "Name": "Result: (Sheet Number/ Scale/ Size)",
+      "Type": "unknown",
+      "InitialValue": "",
+      "Description": "Visualizes a node's output"
+    }
+  ],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "982b59060e834af9bd927c8e7ac97b56",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d274784c9aff4ba6a46aa89222385dfe",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "[\"Drawing Scale\", \"Drawing Size\", \"Latest Info\", \"Key Plan\"];"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "946a6bef9c644d24a333886a0f264547",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1e1efa09cb0e4edc86ab89d18ef9395a",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "\"Refresh Drawing Sheet Info Tool\";"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "0b043f9dcd094e079b8f7dcfdba8c237",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f5bab12bb9f945328c4ea5d9a6ca2a14",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "565c6bea521b4fbb94a8984051a7640b",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "cc870e7574784b078879d5a0ba3cd43c",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "100;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "bec7bf6afd7a4755abda7e7232189a1b",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "45bfaa0455f24c5a971b6493ef450711",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "560;"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import clr\r\nimport sys\r\nsys.path.append('C:\\Program Files (x86)\\IronPython 2.7\\Lib')\r\nimport System\r\nfrom System import Array\r\nfrom System.Collections.Generic import *\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager \r\nfrom RevitServices.Transactions import TransactionManager \r\n\r\nclr.AddReference(\"RevitAPI\")\r\nclr.AddReference(\"RevitAPIUI\")\r\n\r\nimport Autodesk \r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.UI import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication \r\napp = uiapp.Application \r\nuidoc = uiapp.ActiveUIDocument\r\n\r\nOUT = []\r\n\r\nDSs = FilteredElementCollector(doc).OfClass(ViewSheet).WhereElementIsNotElementType().ToElements()\r\n\r\nfor ds in DSs:\r\n    OUT.append(ds)\r\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "fd6b77166188455e80e10f8d07e32cb8",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8051a13100794a519ecc25d75a2148ac",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import clr\r\nimport sys\r\nsys.path.append('C:\\Program Files (x86)\\IronPython 2.7\\Lib')\r\nimport System\r\nfrom System import Array\r\nfrom System.Collections.Generic import *\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager \r\nfrom RevitServices.Transactions import TransactionManager \r\n\r\nclr.AddReference(\"RevitAPI\")\r\nclr.AddReference(\"RevitAPIUI\")\r\n\r\nimport Autodesk \r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.UI import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication \r\napp = uiapp.Application \r\nuidoc = uiapp.ActiveUIDocument\r\n\r\nOUT = []\r\n\r\nDSs = FilteredElementCollector(doc).OfClass(ViewSheet).WhereElementIsNotElementType().ToElements()\r\n\r\nfor ds in DSs:\r\n    OUT.append(ds.Title[7:])\r\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "991ad5de101f4cbaa9e9bf520c8ccb9e",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9531cc44eff345f4a6b5d20d4bd4a7fc",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "b2d30b81135c434daaa86920730efca2",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6da56473ffc24470b50b6dc9cf856430",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "300;"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "Id": "4c3db86f7e6a4c5e8c046facdcd69bb6",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "e6bd922e3bc9406fa6c6c97d01b9c63f",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7e91cc8689354478be8665ee8b2490d4",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1a71adabc63c4f05a5fc414ff4f888f1",
+          "Name": "list",
+          "Description": "A list (type: var[]..[])",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list from the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "33022d03f86e42579c62abb52d3e64cf",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4810285e7e5046a7806a173829275aba",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "\"Cancel\";"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "215bdfc6a164405a97de7ce0ab9328cd",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "988c19351da44dd0a7ffc5fb0940351c",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "120;"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "fd61e053cb514fb5a9a4eb02fd473f5d",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2b8f96e0ffcb4946ab73a6c58c713e98",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "ed386a4b4ab6411ca2085d07d29dad90",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e3b7e31d200b4bff8a16eb7e6b6f52ac",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import clr\r\nimport sys\r\nsys.path.append('C:\\Program Files (x86)\\IronPython 2.7\\Lib')\r\nimport System\r\nfrom System import Array\r\nfrom System.Collections.Generic import *\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager \r\nfrom RevitServices.Transactions import TransactionManager \r\n\r\nclr.AddReference(\"RevitAPI\")\r\nclr.AddReference(\"RevitAPIUI\")\r\n\r\nimport Autodesk \r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.UI import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication \r\napp = uiapp.Application \r\nuidoc = uiapp.ActiveUIDocument\r\n\r\nVSs = UnwrapElement(IN[0][1])\r\n\r\nOUT = []\r\n\r\nfor vs in VSs:\r\n    try:\r\n        VPIds = vs.GetAllViewports()\r\n        VPs = [doc.GetElement(doc.GetElement(vpid).ViewId) for vpid in VPIds]\r\n        \r\n        OUT.append(VPs)\r\n    except:\r\n        OUT.append(None)",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "ad04419825d34ef5bee7336422e2d1a3",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "693c68c0a1194438990e9cf72c94c688",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "82e91a872d7444f6a28bc95e5b5091df",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import clr\r\nimport sys\r\nsys.path.append('C:\\Program Files (x86)\\IronPython 2.7\\Lib')\r\nimport System\r\nfrom System import Array\r\nfrom System.Collections.Generic import *\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager \r\nfrom RevitServices.Transactions import TransactionManager \r\n\r\nclr.AddReference(\"RevitAPI\")\r\nclr.AddReference(\"RevitAPIUI\")\r\n\r\nimport Autodesk \r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.UI import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication \r\napp = uiapp.Application \r\nuidoc = uiapp.ActiveUIDocument\r\n\r\nVSs = UnwrapElement(IN[0][1])\r\nVPs = UnwrapElement(IN[1])\r\nTBs = UnwrapElement(IN[2])\r\n\r\nitems = UnwrapElement(IN[3][0])\r\n\r\nVScales, VSizes = [], []\r\n\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nOUT = []\r\nfor i in range(len(VSs)):\r\n    out = [VSs[i].SheetNumber]\r\n    #Scale\r\n    if \"Drawing Scale\" in items:\r\n        \r\n        try:\r\n            scale = VSs[i].LookupParameter(\"ex_T_06-SCALE\").AsString()\r\n        except:\r\n            scale = \"\"\r\n            \r\n        VP = VPs[i]\r\n        \r\n        VScale = []\r\n        for vp in VP:\r\n            vt = vp.ViewType\r\n            if vt == ViewType.CeilingPlan or vt == ViewType.FloorPlan or vt == ViewType.Elevation or vt == ViewType.Section or vt == ViewType.Detail or vt == ViewType.ThreeD:\r\n                VScale.append(vp.Scale)\r\n                \r\n        if len(VScale) == 1:\r\n            VScale = \"1:\" + str(VScale[0])\r\n        elif (len(VScale) > 1 and len(list(set(VScale))) == 1):\r\n            VScale = \"1:\" + str(VScale[0])\r\n        else:\r\n            VScale = \"NONE\"\r\n            \r\n        try:\r\n            out.append(VScale)    \r\n            VSs[i].LookupParameter(\"ex_T_06-SCALE\").Set(VScale)\r\n        except:\r\n            None\r\n    \r\n    #Size    \r\n    if \"Drawing Size\" in items:   \r\n        try: \r\n            size = VSs[i].LookupParameter(\"ex_T_00-SIZE\").AsString()\r\n        except:\r\n            size = \"\"\r\n        \r\n        if TBs[i].Name[-2:] in [\"A0\", \"A1\", \"A2\", \"A3\", \"A4\"]:\r\n            VSize = TBs[i].Name[-2:]\r\n        else:\r\n            VSize = \"\"\r\n            \r\n        try:\r\n            out.append(VSize)   \r\n            VSs[i].LookupParameter(\"ex_T_00-SIZE\").Set(VSize)\r\n        except:\r\n            None\r\n                \r\n    #LatestInfo  \r\n    if \"Latest Info\" in items:\r\n        rev, date, index, draw, chk = \"\", \"\", \"\", \"\", \"\"\r\n        \r\n        try:\r\n            date = VSs[i].LookupParameter(\"ex_T_LatestDATE\").AsString()\r\n        except:\r\n            date = \"\"\r\n        try:\r\n            index = VSs[i].LookupParameter(\"ex_T_LatestINDEX\").AsString()\r\n        except:\r\n            date = \"\"\r\n        try:\r\n            draw = VSs[i].LookupParameter(\"ex_T_LatestDRAW\").AsString()\r\n        except:\r\n            draw = \"\"\r\n        try:\r\n            chk = VSs[i].LookupParameter(\"ex_T_LatestCHK\").AsString()\r\n        except:\r\n            chk = \"\"\r\n        \r\n        for j in range(1,9):\r\n            \r\n            if VSs[i].LookupParameter(\"ex_T_1{}A-REV_{}\".format(str(j), str(j))).HasValue:\r\n                \r\n                _rev = VSs[i].LookupParameter(\"ex_T_1{}A-REV_{}\".format(str(j), str(j))).AsString()\r\n                \r\n                if len(_rev.strip()) > 0:\r\n                    try:\r\n                        rev = VSs[i].LookupParameter(\"ex_T_1{}A-REV_{}\".format(str(j), str(j))).AsString()\r\n                    except:\r\n                        rev = \"\"\r\n                    try:\r\n                        date = VSs[i].LookupParameter(\"ex_T_1{}B-DATE_{}\".format(str(j), str(j))).AsString()\r\n                    except:\r\n                        date = \"\"\r\n                    try:\r\n                        index = VSs[i].LookupParameter(\"ex_T_1{}C-INDEX_{}\".format(str(j), str(j))).AsString()\r\n                    except:\r\n                        index = \"\"\r\n                    try:\r\n                        draw = VSs[i].LookupParameter(\"ex_T_1{}D-DRAW_{}\".format(str(j), str(j))).AsString()\r\n                    except:\r\n                        draw = \"\"\r\n                    try:\r\n                        chk = VSs[i].LookupParameter(\"ex_T_1{}E-CHK_{}\".format(str(j), str(j))).AsString()\r\n                    except:\r\n                        chk = \"\"\r\n        try:                        \r\n            out.append([rev, date, index, draw, chk])  \r\n            VSs[i].LookupParameter(\"ex_T_LatestDATE\").Set(date)\r\n            VSs[i].LookupParameter(\"ex_T_LatestINDEX\").Set(index)\r\n            VSs[i].LookupParameter(\"ex_T_LatestDRAW\").Set(draw)\r\n            VSs[i].LookupParameter(\"ex_T_LatestCHK\").Set(chk)\r\n        except:\r\n            None\r\n       #KeyPlan  \r\n    if \"Key Plan\" in items:\r\n        if len(VSs[i].SheetNumber) == 8:\r\n            try: \r\n                BLDG = VSs[i].SheetNumber[2]\r\n            except:\r\n                BLDG = \"\"\r\n            keyPlan = [p for p in TBs[i].Parameters if p.Definition.ParameterGroup == BuiltInParameterGroup.PG_VISIBILITY]\r\n            \r\n            for k in keyPlan:\r\n                try:\r\n                    if k.Definition.Name == BLDG:\r\n                        k.Set(1)\r\n                        out.append(BLDG)  \r\n                    else:\r\n                        k.Set(0)                    \r\n                except:\r\n                    None  \r\n    OUT.append(out)\r\n        \r\nTransactionManager.Instance.TransactionTaskDone()",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "299acb5025e749f489c4a4bafae9bf06",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "a65d882cbc8a4a2e944ffc9c87e45029",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "14130772c41942538e752e1de82bba59",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4f6b6e79df43468d9ea686b10563e994",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bb8441e659d2495c8b60782e4e8e4f3c",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d959db0910184a7facc7255cfd0ac37d",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import clr\r\nimport sys\r\nsys.path.append('C:\\Program Files (x86)\\IronPython 2.7\\Lib')\r\nimport System\r\nfrom System import Array\r\nfrom System.Collections.Generic import *\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager \r\nfrom RevitServices.Transactions import TransactionManager \r\n\r\nclr.AddReference(\"RevitAPI\")\r\nclr.AddReference(\"RevitAPIUI\")\r\n\r\nimport Autodesk \r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.UI import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication \r\napp = uiapp.Application \r\nuidoc = uiapp.ActiveUIDocument\r\n\r\nVSs = UnwrapElement(IN[0][1])\r\n\r\nOUT = []\r\n\r\nfor vs in VSs:\r\n    try:\r\n        TBId = vs.GetDependentElements(ElementCategoryFilter(BuiltInCategory.OST_TitleBlocks))[0]\r\n        TB = doc.GetElement(TBId)\r\n        \r\n        OUT.append(TB)\r\n    except:\r\n        OUT.append(None)",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "56809fbda4d84d5ba18cee3ef2c6d0d2",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "745fa95aaea744f2a209c098f333ced8",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7a45c2280b8648c88dc8bfddf9728016",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 49.6,
+      "WatchHeight": 38.4,
+      "Id": "a1134277652f4ebab753a5c29ab6bb54",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "1c9dcb79b8cd48439f0f97b495e28f44",
+          "Name": "",
+          "Description": "Node to show output from",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "751bfa5c147e44afbbd0695ccd1f534e",
+          "Name": "",
+          "Description": "Node output",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualizes a node's output"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "a06a802a1eff4814a152d00721f50145",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "bf2390b7e1e04c9396dbaf2220d9aec6",
+          "Name": "",
+          "Description": "InputName",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "InputName: string = \"\";"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "5ffce05fa9ac480b9d4f46d05b3940de",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d053a2fc11584d5bbd28184b3065f046",
+          "Name": "",
+          "Description": "HilightInView_optionnal",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "/* If set to true, clicking elements of the listview will highlight them in a view like Dynamo's watch node*/\nHilightInView_optionnal: bool = false;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "260c2a845901427d863410d93b4bb971",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4ab9cfda824041249904d8acb191dfa1",
+          "Name": "",
+          "Description": "DisplayModeOnly_optionnal",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "/* Turns off ability to select elements. Form will not output any data for this element.*/\nDisplayModeOnly_optionnal: bool = false;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "1eefbb4ecf5e4a4ba596890b35a5e483",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fbb89a51fefa4fd2bee46e9fb851d1d0",
+          "Name": "",
+          "Description": "ShowElementCount_optionnal",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "/* Will display the number of elements underneath the input name*/\nShowElementCount_optionnal: bool = false;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "637035ad8e5e4d4083e700d969750c54",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4cb928fe88084f119bcbeca936cddf1a",
+          "Name": "",
+          "Description": "DefaultValueIndices_optionnal",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "DefaultValueIndices_optionnal: int[] = DSCore.List.Empty;"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "#Copyright (c) mostafa el ayoubi ,  2016\r\n#Data-Shapes www.data-shapes.net , elayoubi.mostafa@gmail.com\r\n\r\nclass listview():\r\n\r\n    def __init__(self,inputname,height,highlight,display_mode,element_count,default_values,sorted,showId):\r\n        self.inputname = inputname\r\n        self.height = height\r\n        self.highlight = highlight\r\n        self.display_mode = display_mode\r\n        self.element_count = element_count\r\n        self.default_values = default_values\r\n        self.sorted = sorted\r\n        self.showId = showId\r\n\r\n    def __setitem__(self, key, item):\r\n        self.__dict__[key] = item\r\n\r\n    def __getitem__(self, key):\r\n        return self.__dict__[key]\r\n\r\n    def __iter__(self):\r\n        return iter(self.__dict__)\r\n\r\n    def values(self):\r\n        return self.__dict__.values()\r\n\r\n    def keys(self):\r\n        return self.__dict__.keys()\r\n\r\n    def __repr__(self):\r\n        return 'UI.ListView input'\r\n\r\nif isinstance(IN[1],list):\r\n\tin1 = IN[1]\r\nelse:\r\n\tin1 = [IN[1]]\r\n\r\nif isinstance(IN[2],list):\r\n\tin2 = IN[2]\r\nelse:\r\n\tin2 = [IN[2]]\r\n\r\nif IN[6]:\r\n\telement_count = len(in1)\r\nelse:\r\n\telement_count = 0\r\n\r\nx = listview(IN[0],IN[3],IN[4],IN[5],element_count,IN[7],IN[8],IN[9])\r\n\r\nfor k,v in zip(in1,in2):\r\n\tif x.showId :\r\n\t\ttry:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)+ '  -  id: ' + str(v.Id)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8') + '  -  id: ' + str(v.Id)] = v\r\n\t\texcept:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8')] = v\r\n\telse:\r\n\t\ttry:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8')] = v\r\n\t\texcept:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8')] = v\r\nOUT = x",
+      "Engine": "IronPython2",
+      "EngineName": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "7613c0e44ede478e884a4a7ff94212d8",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "0d591c597b2e4795930467eb4981c7e3",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b7958c68705d45eb88a5bfa129e4feae",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8de42523c1694c1586a2d6abddba9555",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d3fe42c5f5a1463ca790475115ac2441",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1b98e49ae005411a943145316aa67dca",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6b0b194e70aa4ac29308f46b2454150a",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2b3b0c01df18426caa221603ad6b432f",
+          "Name": "IN[6]",
+          "Description": "Input #6",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "058f3078e5ad4b3f8deb9e6c6de92911",
+          "Name": "IN[7]",
+          "Description": "Input #7",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fea3fe2eb226449ab62aea31fb6d3af2",
+          "Name": "IN[8]",
+          "Description": "Input #8",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5d4dc9f49b034b2188c2a35947fcc7a7",
+          "Name": "IN[9]",
+          "Description": "Input #9",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a84cd0f38f8c461fbb5be0ff603fb731",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "#Copyright (c) mostafa el ayoubi ,  2016\r\n#Data-Shapes www.data-shapes.net , elayoubi.mostafa@gmail.com\r\n\r\nclass listview():\r\n\r\n    def __init__(self,inputname,height,highlight,display_mode,element_count,default_values,sorted,showId):\r\n        self.inputname = inputname\r\n        self.height = height\r\n        self.highlight = highlight\r\n        self.display_mode = display_mode\r\n        self.element_count = element_count\r\n        self.default_values = default_values\r\n        self.sorted = sorted\r\n        self.showId = showId\r\n\r\n    def __setitem__(self, key, item):\r\n        self.__dict__[key] = item\r\n\r\n    def __getitem__(self, key):\r\n        return self.__dict__[key]\r\n\r\n    def __iter__(self):\r\n        return iter(self.__dict__)\r\n\r\n    def values(self):\r\n        return self.__dict__.values()\r\n\r\n    def keys(self):\r\n        return self.__dict__.keys()\r\n\r\n    def __repr__(self):\r\n        return 'UI.ListView input'\r\n\r\nif isinstance(IN[1],list):\r\n\tin1 = IN[1]\r\nelse:\r\n\tin1 = [IN[1]]\r\n\r\nif isinstance(IN[2],list):\r\n\tin2 = IN[2]\r\nelse:\r\n\tin2 = [IN[2]]\r\n\r\nif IN[6]:\r\n\telement_count = len(in1)\r\nelse:\r\n\telement_count = 0\r\n\r\nx = listview(IN[0],IN[3],IN[4],IN[5],element_count,IN[7],IN[8],IN[9])\r\n\r\nfor k,v in zip(in1,in2):\r\n\tif x.showId :\r\n\t\ttry:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)+ '  -  id: ' + str(v.Id)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8') + '  -  id: ' + str(v.Id)] = v\r\n\t\texcept:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8')] = v\r\n\telse:\r\n\t\ttry:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8')] = v\r\n\t\texcept:\r\n\t\t\ttry:\r\n\t\t\t\tx[str(k)] = v\r\n\t\t\texcept:\r\n\t\t\t\tx[k.encode('utf-8').decode('utf-8')] = v\r\nOUT = x",
+      "Engine": "IronPython2",
+      "EngineName": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "bbaceb05d2464024af92674ac79be41b",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "bac8ad652ff041dbbdd3b0dd9eb00f40",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4f839fea745a46e288431f08d7f91662",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "99e14b1919d94d738ce04ff66ddd2277",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "be6a5fd40f9a4536ab772ed1f7afc63c",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "de3eb3841eb3475c8dba524691342bd7",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "741a02eb24ec448e89c2afea6abe1208",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6f61b76e67a44fb3b2a92cd7f9510f37",
+          "Name": "IN[6]",
+          "Description": "Input #6",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f86c3d18a93442eeb8052915ed0807b6",
+          "Name": "IN[7]",
+          "Description": "Input #7",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "876612e5d716456a8260b921eff1cbf8",
+          "Name": "IN[8]",
+          "Description": "Input #8",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "11ae00e0e0b0482eb3d15b628dd55fcf",
+          "Name": "IN[9]",
+          "Description": "Input #9",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4e09a7c1929c49ab8703c64121104da6",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "dace07ef2c884c1fb6d5a41f31ed7917",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c8c27506417c4800a563a8d1ddf0c70b",
+          "Name": "",
+          "Description": "DisplayModeOnly_optionnal",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "/* Turns off ability to select elements. Form will not output any data for this element.*/\nDisplayModeOnly_optionnal: bool = false;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "723d24bfeb2345ca9ce66ee43c8151db",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b21c6c2a311249bf90070c987e65794f",
+          "Name": "",
+          "Description": "DefaultValueIndices_optionnal",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "DefaultValueIndices_optionnal: int[] = DSCore.List.Empty;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "cf27bac899164ea3b0db4a8ea5b77266",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f44a14f61bfc4160a7d8d9fc90780e60",
+          "Name": "",
+          "Description": "HilightInView_optionnal",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "/* If set to true, clicking elements of the listview will highlight them in a view like Dynamo's watch node*/\nHilightInView_optionnal: bool = false;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "80ff46ac9f4540c0b11f300794f7705d",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "300d5f3da5e64322bf367ad6917db67e",
+          "Name": "",
+          "Description": "InputName",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "InputName: string = \"\";"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "#Copyright (c) Data Shapes,\t 2020\r\n#Data-Shapes www.data-shapes.io , elayoubi.mostafa@data-shapes.io @data_shapes\r\n\t\r\nimport clr\r\nimport sys\r\npyt_path = r'C:\\Program Files (x86)\\IronPython 2.7\\Lib'\r\nsys.path.append(pyt_path)\r\nimport os\r\nimport webbrowser\r\nimport unicodedata\r\nimport io\r\nimport tempfile\r\nimport System\r\n\t\r\ntry:\r\n\tclr.AddReference('System.Windows.Forms')\r\n\tclr.AddReference('System.Drawing')\r\n\tclr.AddReference('System.Windows.Forms.DataVisualization')\r\n\tclr.AddReference(\"PresentationCore\")\r\n\tclr.AddReference(\"WindowsBase\")\r\n\tfrom System.Windows.Input import  Key, Keyboard\r\n\t\r\n\tfrom System.Drawing import Point , Size , Graphics, Bitmap, Image, Font, FontStyle, Icon, Color, Region , Rectangle , ContentAlignment , SystemFonts, FontFamily\r\n\tfrom System.Windows.Forms import Application, DockStyle,MouseButtons , Button, Form, Label, TrackBar , ToolTip, ColumnHeader, TextBox, CheckBox, FolderBrowserDialog, OpenFileDialog, DialogResult, ComboBox, FormBorderStyle, FormStartPosition, ListView, ListViewItem , SortOrder, Panel, ImageLayout, GroupBox, RadioButton, BorderStyle, PictureBox, PictureBoxSizeMode, LinkLabel, CheckState, ColumnHeaderStyle , ImageList, VScrollBar, DataGridView, DataGridViewSelectionMode, DataGridViewAutoSizeColumnsMode , DataGridViewClipboardCopyMode , TreeView , TreeNode , TreeNodeCollection , AutoScaleMode , Screen, Padding\r\n\tfrom System.Windows.Forms.DataVisualization.Charting import *#Chart , SeriesChartType\r\n\tfrom System.Collections.Generic import *\r\n\tfrom System.Collections.Generic import List as iList\r\n\tfrom System.Windows.Forms import View as vi\r\n\tclr.AddReference('System')\r\n\tfrom System import IntPtr , Char\r\n\tfrom System import Type as SType, IO\r\n\tfrom System import Array\r\n\tfrom System.ComponentModel import Container\r\n\tclr.AddReference('System.Data')\r\n\tfrom System.Data import DataTable , DataView\r\n\r\n\ttry: #try to import All Revit dependencies\r\n\t\tclr.AddReference('RevitAPIUI')\r\n\t\tfrom  Autodesk.Revit.UI import Selection , TaskDialog \r\n\t\tfrom  Autodesk.Revit.UI.Selection import ISelectionFilter\r\n\t\tclr.AddReference('RevitNodes')\r\n\t\timport Revit\r\n\t\tclr.ImportExtensions(Revit.Elements)\r\n\t\tclr.ImportExtensions(Revit.GeometryConversion)\r\n\t\t\r\n\t\tclr.AddReference('RevitServices')\r\n\t\tfrom RevitServices.Persistence import DocumentManager\r\n\t\tdoc = DocumentManager.Instance.CurrentDBDocument\r\n\t\tuidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\t\r\n\t\tclr.AddReference('RevitAPI')\r\n\t\ttry:\r\n\t\t\tfrom Autodesk.Revit.DB import ImageImportOptions\t\r\n\t\texcept:\r\n\t\t\tfrom Autodesk.Revit.DB import ImageTypeOptions , ImageType, ImagePlacementOptions , ImageInstance\r\n\t\tfrom Autodesk.Revit.DB import FilteredElementCollector , Transaction, View , ViewType , ViewFamily, ViewDrafting, ViewFamilyType, Element, ElementId , FamilyInstance , Document , XYZ, BoxPlacement, UnitUtils\r\n\t\t\r\n\t\ttry:\r\n\t\t\tfrom Autodesk.Revit.DB import  UnitType\r\n\t\texcept:\r\n\t\t\tfrom Autodesk.Revit.DB import SpecTypeId\r\n\r\n\t\tdbviews = [v for v in FilteredElementCollector(doc).OfClass(View).ToElements() if (v.ViewType == ViewType.FloorPlan or v.ViewType == ViewType.CeilingPlan or v.ViewType == ViewType.Section or v.ViewType == ViewType.Elevation or v.ViewType == ViewType.ThreeD)]\r\n\t\tviewindex = 0\r\n\t\ttry:\r\n\t\t\tUIunit = Document.GetUnits(doc).GetFormatOptions(UnitType.UT_Length).DisplayUnits\r\n\t\texcept:\r\n\t\t\tUIunit = Document.GetUnits(doc).GetFormatOptions(SpecTypeId.Length).GetUnitTypeId()\r\n\t\t\t\r\n\t\tclass selectionfilter(ISelectionFilter):\r\n\t\t\tdef __init__(self,category):\r\n\t\t\t\tself.category = category\r\n\t\t\tdef AllowElement(self,element):\r\n\t\t\t\tif element.Category.Name in [c.Name for c in self.category]:\r\n\t\t\t\t\treturn True\r\n\t\t\t\telse:\r\n\t\t\t\t\treturn False\r\n\t\t\tdef AllowReference(reference,point):\r\n\t\t\t\treturn False\r\n\r\n\r\n\t\t\t\r\n\texcept: #in case we are in the Sandbox, Formit or Civil 3D environment\r\n\t\tpass\r\n\t\r\n\timportcolorselection = 0\r\n\t\r\n\ttry:\r\n\t\tfrom  Autodesk.Revit.UI import ColorSelectionDialog\r\n\texcept:\r\n\t\timportcolorselection = 1\r\n\r\n\ttry:\r\n\t\tfrom  Autodesk.Revit.DB import ImageTypeSource \r\n\texcept:\r\n\t\tpass\r\n\t\r\n\r\n\t\r\n\tclr.AddReference('ProtoGeometry')\r\n\tfrom Autodesk.DesignScript.Geometry import Point as dsPoint\r\n\r\n\tfrom System.Reflection import Assembly\r\n\timport xml.etree.ElementTree as et\r\n\t\r\n\r\n\t\r\n\timport re\t\r\n\tdef regexEndNum(input):\r\n\t\ttry:\r\n\t\t\treturn\tre.search('(\\d+)$', input).group(0)\r\n\t\texcept:\r\n\t\t\treturn \"\"\r\n\r\n\tdef iterateThroughNodes(collection,li):\r\n\t\tif hasattr(collection,'Nodes'):\r\n\t\t\tntest = collection.Nodes\r\n\t\t\tif len(ntest) > 0:\r\n\t\t\t\tfor i in ntest:\r\n\t\t\t\t\titerateThroughNodes(i,li)\r\n\t\t\telse:\r\n\t\t\t\tif collection.Checked:\r\n\t\t\t\t\tli.append(collection.Tag)\r\n\t\treturn li\r\n\t\t\r\n\r\n\t\r\n\tclass MultiTextBoxForm(Form):\r\n\t\t\r\n\t\tdef __init__(self):\r\n\t\t\tself.Text = \"Exyte_TW - \" + IN[3]\r\n\t\t\tself.output = []\r\n\t\t\tself.values = []\r\n\t\t\tself.cancelled = True\r\n\t\t\tself.lastMouseLocation = 0\r\n\t\t\tself.startNode = None\r\n\t\r\n\t\tdef setclose(self, sender, event):\r\n\t\t\tcbindexread = 0\r\n\t\t\tif sender.Name != \"Cancel\":\r\n\t\t\t\tself.cancelled = False\r\n\t\t\t\tfor f in self.output:\r\n\t\t\t\t\tif f.GetType() == myTextBox:\r\n\t\t\t\t\t\tif f._isNum :\r\n\t\t\t\t\t\t\tval = float(f.Text)\r\n\t\t\t\t\t\telse:\r\n\t\t\t\t\t\t\tval = f.Text\r\n\t\t\t\t\t\tself.values.append(val)\r\n\t\t\t\t\tif f.GetType() == CheckBox:\r\n\t\t\t\t\t\tself.values.append(f.Checked)\r\n\t\t\t\t\tif f.GetType() == Button:\r\n\t\t\t\t\t\tif isinstance(f.Tag ,list):\r\n\t\t\t\t\t\t\ttry:\r\n\t\t\t\t\t\t\t\tself.values.append([e for e in f.Tag if e.__class__.__name__ != \"Category\"])\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\texcept:\r\n\t\t\t\t\t\t\t\tself.values.append(f.Tag)\t\t\t\t\t\t\t\r\n\t\t\t\t\t\telse:\r\n\t\t\t\t\t\t\ttry:\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\tif f.Tag.__class__.__name__ != \"Category\":\r\n\t\t\t\t\t\t\t\t\tself.values.append(f.Tag)\r\n\t\t\t\t\t\t\t\telse:\r\n\t\t\t\t\t\t\t\t\tself.values.append([])\r\n\t\t\t\t\t\t\texcept:\r\n\t\t\t\t\t\t\t\tself.values.append(f.Tag)\t\r\n\t\t\t\t\tif f.GetType() == ComboBox:\r\n\t\t\t\t\t\ttry:\r\n\t\t\t\t\t\t\tkey = f.Text\r\n\t\t\t\t\t\t\tself.values.append(f.Tag[key])\r\n\t\t\t\t\t\texcept:\r\n\t\t\t\t\t\t\tself.values.append(None)\r\n\t\t\t\t\tif f.GetType() == mylistview:\r\n\t\t\t\t\t\tself.values.append([f.Values[i.Text] for i in f.CheckedItems])\r\n\t\t\t\t\tif f.GetType() == mytrackbar:\r\n\t\t\t\t\t\tself.values.append(f.startval+f.Value*f.step)\r\n\t\t\t\t\tif f.GetType() == mygroupbox:\r\n\t\t\t\t\t\ttry:\r\n\t\t\t\t\t\t\tkey = [j.Text for j in f.Controls if j.Checked == True][0]\r\n\t\t\t\t\t\t\tself.values.append(f.Tag[key])\r\n\t\t\t\t\t\texcept:\r\n\t\t\t\t\t\t\tself.values.append(None)\r\n\t\t\t\t\tif f.GetType() == myDataGridView:\r\n\t\t\t\t\t\tf.EndEdit()\r\n\t\t\t\t\t\tdsrc = f.DataSource\r\n\t\t\t\t\t\tout = []\r\n\t\t\t\t\t\tcolcount = f.ColumnCount\r\n\t\t\t\t\t\trowcount = f.RowCount - 1\r\n\t\t\t\t\t\tif f.Tag:\r\n\t\t\t\t\t\t\tl = []\r\n\t\t\t\t\t\t\tfor i in range(colcount):\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\tl.append(dsrc.Columns[i].ColumnName)\r\n\t\t\t\t\t\t\tout.append(l)\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\tfor r in range(rowcount):\r\n\t\t\t\t\t\t\t\tl = []\r\n\t\t\t\t\t\t\t\tfor i in range(colcount):\r\n\t\t\t\t\t\t\t\t\tl.append(dsrc.DefaultView[r].Row[i])\r\n\t\t\t\t\t\t\t\tout.append(l)\r\n\t\t\t\t\t\telse: \r\n\t\t\t\t\t\t\tfor r in range(rowcount):\r\n\t\t\t\t\t\t\t\tl = []\r\n\t\t\t\t\t\t\t\tfor i in range(colcount):\r\n\t\t\t\t\t\t\t\t\tl.append(dsrc.DefaultView[r].Row[i])\r\n\t\t\t\t\t\t\t\tout.append(l)\r\n\t\t\t\t\t\tself.values.append(out)\r\n\t\t\t\t\tif f.GetType() == TreeView:\r\n\t\t\t\t\t\tls = []\r\n\t\t\t\t\t\tnds = f.Nodes[0]\r\n\t\t\t\t\t\titerateThroughNodes(nds,ls)\r\n\t\t\t\t\t\tself.values.append(ls)\r\n\t\t\t\t\tif f.GetType() == GroupBox:\r\n\t\t\t\t\t\trb = [c for c in f.Controls if c.GetType() == RadioButton and c.Checked][0]\r\n\t\t\t\t\t\tself.values.append(rb.Text)\r\n\t\t\t\t\t\tf.Controls.Remove(rb)\r\n\t\t\telse:\r\n\t\t\t\tself.values = None\r\n\t\t\t\tself.cancelled = True\r\n\t\t\tself.Close()\r\n\t\r\n\t\tdef reset(self, sender, event):\r\n\t\t\tpass\r\n\t\r\n\t\tdef openfile(self, sender, event):\r\n\t\t\tofd = OpenFileDialog()\r\n\t\t\tdr = ofd.ShowDialog()\r\n\t\t\tif dr == DialogResult.OK:\r\n\t\t\t\tsender.Text = ofd.FileName\r\n\t\t\t\tsender.Tag = ofd.FileName\r\n\r\n\t\tdef exportToExcel(self, sender, event):\r\n\t\t\t#importing Excel IronPython libraries\r\n\t\t\tclr.AddReferenceByName('Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c')\r\n\t\t\tfrom Microsoft.Office.Interop import Excel\r\n\t\t\tex = Excel.ApplicationClass()\r\n\t\t\tex.Visible = sender.Tag[1]\r\n\t\t\tex.DisplayAlerts = False\r\n\t\t\tfbd = FolderBrowserDialog()\r\n\t\t\tfbd.SelectedPath = sender.Text\r\n\t\t\tparent = sender.Parent\r\n\t\t\tfptextbox = parent.GetChildAtPoint(Point(parent.Location.X,sender.Location.Y+5*yRatio))\r\n\t\t\tdataGrid = parent.GetChildAtPoint(Point(parent.Location.X,parent.Location.Y+23*xRatio))\r\n\t\t\tdataTable = dataGrid.DataSource\r\n\t\t\tfptext = fptextbox.Text\r\n\t\t\ttitletext = parent.GetChildAtPoint(Point(0,0)).Text\r\n\t\t\tdr = fbd.ShowDialog()\r\n\t\t\tfrstRwTtle = sender.Tag[0]\r\n\t\t\tif frstRwTtle:\r\n\t\t\t\t_header = Excel.XlYesNoGuess.xlYes\r\n\t\t\telse:\r\n\t\t\t\t_header = Excel.XlYesNoGuess.xlNo\r\n\t\t\tif dr == DialogResult.OK:\r\n\t\t\t\tworkbk = ex.Workbooks.Add()\r\n\t\t\t\tworksheet = workbk.Worksheets.Add()\r\n\t\t\t\t#Writing title and doc info\r\n\t\t\t\tif sender.Tag[2]:\r\n\t\t\t\t\ttitleCell = worksheet.Cells[1,1]\r\n\t\t\t\t\tworksheet.Cells[2,1].Value2 = sender.Tag[3]\r\n\t\t\t\t\ttitleCell.Value2 = titletext\r\n\t\t\t\t\ttitleCell.Font.Size = 18\r\n\t\t\t\t\ttitleCell.Font.Bold = True\r\n\t\t\t\t\tstartR = 3\r\n\t\t\t\t\tendR = 3\r\n\t\t\t\telse:\r\n\t\t\t\t\tstartR = 1\r\n\t\t\t\t\tendR = 0\t\r\n\t\t\t\tif frstRwTtle:\r\n\t\t\t\t\tfor j in range(0,dataTable.Columns.Count):\r\n\t\t\t\t\t\tworksheet.Cells[startR,j+1] = dataTable.Columns[j].ColumnName\t\t\t\t\r\n\t\t\t\t\tfor i in range(0,dataTable.Rows.Count):\r\n\t\t\t\t\t\tfor j in range(0,dataTable.Columns.Count):\r\n\t\t\t\t\t\t\tworksheet.Cells[i+startR+1,j+1] = dataTable.DefaultView[i].Row[j].ToString()\r\n\t\t\t\t\txlrange = ex.get_Range(worksheet.Cells[startR,1],worksheet.Cells[dataTable.Rows.Count+endR+1,dataTable.Columns.Count])\t\t\t\t\t\t\t\r\n\t\t\t\telse :\r\n\t\t\t\t\tfor i in range(0,dataTable.Rows.Count):\r\n\t\t\t\t\t\tfor j in range(0,dataTable.Columns.Count):\r\n\t\t\t\t\t\t\tworksheet.Cells[i+startR,j+1] = dataTable.DefaultView[i].Row[j].ToString()\t\t\t\t\r\n\t\t\t\t\txlrange = ex.get_Range(worksheet.Cells[startR,1],worksheet.Cells[dataTable.Rows.Count+endR,dataTable.Columns.Count])\r\n\t\t\t\txlrange.Columns.AutoFit()\r\n\t\t\t\tworksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, xlrange, SType.Missing, _header, SType.Missing).Name = \"DataShapesTable\"\r\n\t\t\t\tworksheet.ListObjects[\"DataShapesTable\"].TableStyle =  \"TableStyleMedium16\"\r\n\t\t\t\tworkbk.SaveAs(fbd.SelectedPath + \"\\\\\" + fptext)\r\n\t\t\t\tif not sender.Tag[1]:\r\n\t\t\t\t\tworkbk.Close()\r\n\t\t\t\t\tex.Quit()\r\n\r\n\t\tdef startCell(self, sender, event ):\r\n\t\t\tsender.startcell[\"X\"] = event.ColumnIndex\r\n\t\t\tsender.startcell[\"Y\"] = event.RowIndex\t\r\n\r\n\t\tdef endCell(self, sender, event ):\r\n\t\t\ttry:\r\n\t\t\t\tsender.endcell[\"X\"] = event.ColumnIndex\r\n\t\t\t\tsender.endcell[\"Y\"] = event.RowIndex \r\n\t\t\t\tstartval = sender.Rows[sender.startcell[\"Y\"]].Cells[sender.startcell[\"X\"]].Value\r\n\t\t\t\tendNum = regexEndNum(startval)\r\n\t\t\t\tif endNum != \"\":\r\n\t\t\t\t\tif sender.endcell[\"Y\"] == sender.startcell[\"Y\"]:\r\n\t\t\t\t\t\tfor e,i in enumerate(range(sender.startcell[\"X\"],sender.endcell[\"X\"] + 1)):\r\n\t\t\t\t\t\t\tsender.Rows[sender.startcell[\"Y\"]].Cells[i].Value = startval[:-len(endNum)] + str(int(endNum) + e)\r\n\t\t\t\t\telif sender.endcell[\"X\"] == sender.startcell[\"X\"]:\r\n\t\t\t\t\t\tfor e,i in enumerate(range(sender.startcell[\"Y\"],sender.endcell[\"Y\"] + 1)):\r\n\t\t\t\t\t\t\tsender.Rows[i].Cells[sender.endcell[\"X\"]].Value = startval[:-len(endNum)] + str(int(endNum) + e)\r\n\t\t\t\telse:\t\t\t\t\r\n\t\t\t\t\tif sender.endcell[\"Y\"] == sender.startcell[\"Y\"]:\r\n\t\t\t\t\t\tfor i in range(sender.startcell[\"X\"],sender.endcell[\"X\"] + 1):\r\n\t\t\t\t\t\t\tsender.Rows[sender.startcell[\"Y\"]].Cells[i].Value = startval\r\n\t\t\t\t\telif sender.endcell[\"X\"] == sender.startcell[\"X\"]:\r\n\t\t\t\t\t\tfor i in range(sender.startcell[\"Y\"],sender.endcell[\"Y\"] + 1):\r\n\t\t\t\t\t\t\tsender.Rows[i].Cells[sender.endcell[\"X\"]].Value = startval\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\t\t\t\t\r\n\t\tdef startRowDrag(self, sender, event ):\r\n\t\t\tshmak\r\n\t\t\t\r\n\t\tdef opendirectory(self, sender, event):\r\n\t\t\tfbd = FolderBrowserDialog()\r\n\t\t\tfbd.SelectedPath = sender.Text\r\n\t\t\tdr = fbd.ShowDialog()\r\n\t\t\tif dr == DialogResult.OK:\r\n\t\t\t\tsender.Text = fbd.SelectedPath\r\n\t\t\t\tsender.Tag = fbd.SelectedPath\r\n\t\r\n\t\tdef pickobjects(self, sender, event):\t\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\ttry:\r\n\t\t\t\tsel = uidoc.Selection.PickObjects(Selection.ObjectType.Element,'')\r\n\t\t\t\tselelem = [doc.GetElement(s.ElementId) for s in sel]\r\n\t\t\t\tsender.Tag = (selelem)\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\t\t#THIS METHOD IS FOR CIVIL 3D EVIRONMENT\r\n\t\tdef pickautocadobjects(self, sender, event):   \r\n\t\t\tselelem = []\t\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\ttry:\r\n\t\t\t\tacadDoc = System.Runtime.InteropServices.Marshal.GetActiveObject(\"Autocad.Application\").ActiveDocument\r\n\t\t\t\tacadDoc.Activate()\r\n\t\t\t\tacadUser = acadDoc.GetVariable(\"users5\")\t\r\n\t\t\t\tacadDoc.SendCommand(\"(and(princ\\042\"+ sender.Text + \"\\042)(setq ss(ssget))(setvar\\042users5\\042\\042LinkDWGUIOK\\042)(command\\042_.Select\\042ss\\042\\042)) \")\r\n\t\t\t\tselection_ = acadDoc.ActiveSelectionSet\r\n\t\t\t\tacadDoc.SendCommand(\"(setq ss nil) \")\r\n\t\t\t\tif acadDoc.GetVariable(\"users5\") == \"LinkDWGUIOK\" and selection_ != None:\r\n\t\t\t\t\tfor sel in selection_:\t\t\t\t\r\n\t\t\t\t\t\tselelem.append(sel)\t\t\r\n\t\t\t\t\tacadDoc.SetVariable(\"users5\", acadUser)\r\n\t\t\t\tsender.Tag = list(selelem)\t\t\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\t\r\n\r\n\t\tdef pickautocadobject(self, sender, event):\t  \r\n\t\t\tselelem = None\t\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\ttry:\r\n\t\t\t\tacadDoc = System.Runtime.InteropServices.Marshal.GetActiveObject(\"Autocad.Application\").ActiveDocument\r\n\t\t\t\tacadUser = acadDoc.GetVariable(\"users5\")\r\n\t\t\t\tacadPickBox = acadDoc.GetVariable(\"pickbox\")\r\n\t\t\t\tacadDoc.SetVariable(\"pickbox\", 5)\r\n\t\t\t\tacadDoc.Activate()\r\n\t\t\t\tacadDoc.SendCommand(\"(setq obj(car(entsel\\042\" + sender.Text + \"\\042))) \")\r\n\t\t\t\tacadDoc.SendCommand(\"(and obj(setvar\\042users5\\042(cdr(assoc 5(entget obj))))(setq obj nil)) \")\t\t\r\n\t\t\t\tselection_ = acadDoc.GetVariable(\"users5\")\r\n\t\t\t\tacadDoc.SetVariable(\"pickbox\", acadPickBox)\r\n\t\t\t\tacadDoc.SetVariable(\"users5\", acadUser)\r\n\t\t\t\tselelem = acadDoc.HandleToObject(selection_)\r\n\t\t\t\tsender.Tag = selelem\t\t\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\t\r\n\r\n\t\tdef pickobjectsordered(self, sender, event):\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\toutput = []\r\n\t\t\ttest = True\r\n\t\t\tTaskDialog.Show(\"Data|Shapes\", 'Pick elements in order, then hit ESC to exit.')\r\n\t\t\twhile test:\r\n\t\t\t\ttry:\r\n\t\t\t\t\tsel = doc.GetElement(uidoc.Selection.PickObject(Selection.ObjectType.Element, 'Pick elements in order').ElementId)\r\n\t\t\t\t\toutput.append(sel.ToDSType(True))\r\n\t\t\t\texcept : \r\n\t\t\t\t\ttest = False\r\n\t\t\t\tsender.Tag = output\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\t\t\r\n\t\tdef pickobjectsofcatordered(self, sender, event):\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\toutput = []\r\n\t\t\ttest = True\r\n\t\t\tif isinstance(sender.Tag,list):\t\t\t\r\n\t\t\t\tcategory = UnwrapElement(sender.Tag)\r\n\t\t\telse:\r\n\t\t\t\tcategory = [UnwrapElement(sender.Tag)]\r\n\t\t\tTaskDialog.Show(\"Data|Shapes\", 'Select %s in order, then press ESC to exit.' %(', '.join([c.Name for c in category])))\r\n\t\t\twhile test:\r\n\t\t\t\ttry:\r\n\t\t\t\t\tselfilt = selectionfilter(category)\r\n\t\t\t\t\tsel = doc.GetElement(uidoc.Selection.PickObject(Selection.ObjectType.Element,selfilt, 'Select %s' %(', '.join([c.Name for c in category]))).ElementId)\t\t\t\t\r\n\t\t\t\t\toutput.append(sel.ToDSType(True))\r\n\t\t\t\texcept : \r\n\t\t\t\t\ttest = False\r\n\t\t\t\tsender.Tag = (output)\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\t\t\t\r\n\t\tdef picklinkedobjects(self, sender, event):\r\n\t\t\t#This part was made easier by Dimitar Venkov's work\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\ttry:\r\n\t\t\t\tlinkref = uidoc.Selection.PickObject(Selection.ObjectType.Element,'Select the link instance.')\r\n\t\t\t\tlink = doc.GetElement(linkref.ElementId).GetLinkDocument()\r\n\t\t\t\ttd = TaskDialog.Show('Data-Shapes','Select the linked elements and press Finish.')\r\n\t\t\t\tsel = uidoc.Selection.PickObjects(Selection.ObjectType.LinkedElement,'Select the linked elements and press Finish.')\r\n\t\t\t\tselelem = [link.GetElement(s.LinkedElementId) for s in sel]\r\n\t\t\t\tsender.Tag = (selelem)\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\t\t\r\n\r\n\t\tdef pickobject(self, sender, event):\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\ttry:\r\n\t\t\t\tsel = uidoc.Selection.PickObject(Selection.ObjectType.Element,'')\r\n\t\t\t\tselelem = doc.GetElement(sel.ElementId) \r\n\t\t\t\tsender.Tag = (selelem)\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\t\t\t\r\n\t\tdef picklinkedobject(self, sender, event):\r\n\t\t\t#This part was made easier by Dimitar Venkov's work\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\ttry:\r\n\t\t\t\tlinkref = uidoc.Selection.PickObject(Selection.ObjectType.Element,'Select the link instance.')\r\n\t\t\t\tlink = doc.GetElement(linkref.ElementId).GetLinkDocument()\r\n\t\t\t\ttd = TaskDialog.Show('Data-Shapes','Select the linked element.')\r\n\t\t\t\tsel = uidoc.Selection.PickObject(Selection.ObjectType.LinkedElement,'Select the linked element.')\r\n\t\t\t\tselelem = link.GetElement(sel.LinkedElementId)\r\n\t\t\t\tsender.Tag = (selelem)\r\n\t\t\texcept:\r\n\t\t\t\tpass\t\t\t\t\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\t\t\t\r\n\t\tdef pickobjectsofcat(self, sender, event):\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\tif isinstance(sender.Tag,list):\t\t\r\n\t\t\t\tcategory = UnwrapElement(sender.Tag)\r\n\t\t\telse:\r\n\t\t\t\tcategory = [UnwrapElement(sender.Tag)]\r\n\t\t\ttry:\r\n\t\t\t\tselfilt = selectionfilter(category)\r\n\t\t\t\tsel = uidoc.Selection.PickObjects(Selection.ObjectType.Element,selfilt,'Select %s' %(', '.join([c.Name for c in category])))\r\n\t\t\t\tselelem = [doc.GetElement(s.ElementId) for s in sel]\r\n\t\t\t\tsender.Tag = (selelem)\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\r\n\t\tdef pickobjectofcat(self, sender, event):\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\tif isinstance(sender.Tag,list):\t\t\r\n\t\t\t\tcategory = UnwrapElement(sender.Tag)\r\n\t\t\telse:\r\n\t\t\t\tcategory = [UnwrapElement(sender.Tag)]\r\n\t\t\ttry:\r\n\t\t\t\tselfilt = selectionfilter(category)\r\n\t\t\t\tsel = uidoc.Selection.PickObject(Selection.ObjectType.Element,selfilt,'Select %s' %(', '.join([c.Name for c in category])))\r\n\t\t\t\tselelem = doc.GetElement(sel.ElementId) \r\n\t\t\t\tsender.Tag = (selelem)\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\r\n\t\tdef treeNodeMouseDown(self, sender, event):\r\n\t\t\tif Keyboard.IsKeyDown(Key.LeftShift) and event.Button == MouseButtons.Left:\r\n\t\t\t\ttv = sender\r\n\t\t\t\tendNode = tv.GetNodeAt(0, event.Y)\r\n\t\t\t\t#If both nodes exist and are in the same parent node\r\n\t\t\t\tif self.startNode != None and endNode != None and self.startNode.Parent == endNode.Parent:\r\n\t\t\t\t\tstartIndex = self.startNode.Index\r\n\t\t\t\t\tendIndex = endNode.Index\r\n\t\t\t\t\t#Swap the indexes if the starting index is greater than the ending index\r\n\t\t\t\t\tif startIndex > endIndex:\r\n\t\t\t\t\t\ttemp = startIndex\r\n\t\t\t\t\t\tstartIndex = endIndex\r\n\t\t\t\t\t\tendIndex = temp\r\n\t\t\t\t\tfor i in range(startIndex,endIndex+1):\t\t\t\t\t  \r\n\t\t\t\t\t\tself.startNode.Parent.Nodes[i].Checked = not self.startNode.Parent.Nodes[i].Checked\r\n\t\t\t\t\tself.lastMouseLocation = event.Y\r\n\t\t\telse:\r\n\t\t\t\ttv = sender\r\n\t\t\t\tself.startNode = tv.GetNodeAt(0, event.Y)\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\r\n\t\tdef pickfaces(self, sender, event):\r\n\t\t\tfaces = []\t\t\t\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\ttry:\r\n\t\t\t\tselface = uidoc.Selection.PickObjects(Selection.ObjectType.Face,'')\r\n\t\t\t\tfor s in selface:\r\n\t\t\t\t\telemid = s.ElementId\r\n\t\t\t\t\telem = doc.GetElement(elemid)\r\n\t\t\t\t\tif isinstance(elem,FamilyInstance):\r\n\t\t\t\t\t\ttransf = elem.GetTransform().ToCoordinateSystem()\r\n\t\t\t\t\t\tgeom = elem.GetGeometryObjectFromReference(s)\r\n\t\t\t\t\t\tconvertedGeom = geom.Convert(s, transf)\t\t\t\t\t\r\n\t\t\t\t\t\tfaces.append(convertedGeom)\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\tf = uidoc.Document.GetElement(s).GetGeometryObjectFromReference(s).ToProtoType(True)\r\n\t\t\t\t\t\t[i.Tags.AddTag(\"RevitFaceReference\", s) for i in f]\r\n\t\t\t\t\t\tfaces.append(f)\r\n\t\t\t\tsender.Tag = [i for j in faces for i in j]\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\t\t\t\t\r\n\t\tdef pickpointsonface(self, sender, event):\r\n\t\t\tfaces = []\t\t\t\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\r\n\t\t\tselpoints = uidoc.Selection.PickObjects(Selection.ObjectType.PointOnElement,'')\r\n\t\t\tpoints = []\r\n\t\t\tfor s in selpoints:\r\n\t\t\t\tpt = s.GlobalPoint\r\n\t\t\t\tpoints.append(dsPoint.ByCoordinates(UnitUtils.ConvertFromInternalUnits(pt.X,UIunit),UnitUtils.ConvertFromInternalUnits(pt.Y,UIunit),UnitUtils.ConvertFromInternalUnits(pt.Z,UIunit)))\r\n\t\t\tsender.Tag = points\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\t\t\t\t\r\n\t\tdef pickedges(self, sender, event):\r\n\t\t\tedges = []\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = False\t\r\n\t\t\ttry:\t\t\t\t\r\n\t\t\t\tseledge = uidoc.Selection.PickObjects(Selection.ObjectType.Edge,'')\r\n\t\t\t\tfor s in seledge:\r\n\t\t\t\t\telemid = s.ElementId\r\n\t\t\t\t\telem = doc.GetElement(elemid)\r\n\t\t\t\t\tif isinstance(elem,FamilyInstance):\r\n\t\t\t\t\t\ttransf = elem.GetTransform().ToCoordinateSystem()\r\n\t\t\t\t\t\tgeom = elem.GetGeometryObjectFromReference(s)\r\n\t\t\t\t\t\tconvertedGeom = geom.Convert(s, transf)\r\n\t\t\t\t\t\tconvertedGeom.Tags.AddTag(\"RevitFaceReference\", s)\r\n\t\t\t\t\t\tedges.append(convertedGeom)\t\t\t\t\t\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\te = uidoc.Document.GetElement(s).GetGeometryObjectFromReference(s).AsCurve().ToProtoType(True)\r\n\t\t\t\t\t\te.Tags.AddTag(\"RevitFaceReference\", s)\r\n\t\t\t\t\t\tedges.append(e)\r\n\t\t\t\tsender.Tag = edges\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\t\t\tfor c in self.Controls:\r\n\t\t\t\tc.Enabled = True\r\n\r\n\t\tdef colorpicker(self, sender, event):\r\n\t\t\tdialog = ColorSelectionDialog()\r\n\t\t\tselection = ColorSelectionDialog.Show(dialog)\r\n\t\t\tselected = dialog.SelectedColor\r\n\t\t\tsender.Tag = selected\r\n\t\t\tsender.BackColor = Color.FromArgb(selected.Red,selected.Green,selected.Blue)\r\n\t\t\tsender.ForeColor = Color.FromArgb(selected.Red,selected.Green,selected.Blue)\r\n\t\r\n\t\tdef topmost(self):\r\n\t\t\tself.TopMost = True\r\n\t\r\n\t\tdef lvadd(self, sender, event):\r\n\t\t\tsender.Tag = [i for i in sender.CheckedItems]\r\n\t\t\t\r\n\t\tdef scroll(self, sender, event):\r\n\t\t\tparent = sender.Parent\r\n\t\t\tchild = parent.GetChildAtPoint(Point(0,5*yRatio))\r\n\t\t\tchild.Text = str(sender.startval+sender.Value*sender.step)\r\n\r\n\t\tdef openurl(self, sender, event):\r\n\t\t\twebbrowser.open(sender.Tag)\r\n\t\r\n\t\tdef selectall(self, sender, event):\r\n\t\t\tif sender.Checked:\r\n\t\t\t\tparent = sender.Parent\r\n\t\t\t\tlistview = parent.GetChildAtPoint(Point(0,0))\r\n\t\t\t\tfor i in listview.Items:\r\n\t\t\t\t\ti.Checked = True\r\n\t\t\telse:\r\n\t\t\t\tpass\r\n\t\t\t\t\r\n\t\tdef selectnone(self, sender, event):\r\n\t\t\tif sender.Checked:\r\n\t\t\t\tparent = sender.Parent\r\n\t\t\t\tlistview = parent.GetChildAtPoint(Point(0,0))\r\n\t\t\t\tfor i in listview.Items:\r\n\t\t\t\t\ti.Checked = False\r\n\t\t\telse:\r\n\t\t\t\tpass\t\t\r\n\r\n\t\tdef updateallnone(self, sender, event):\r\n\t\t\ttry:\r\n\t\t\t\tparent = sender.Parent\r\n\t\t\t\trball = parent.GetChildAtPoint(Point(0,sender.Height + 5*yRatio))\r\n\t\t\t\trbnone = parent.GetChildAtPoint(Point(80 * xRatio,sender.Height + 5*yRatio))\r\n\t\t\t\tif sender.CheckedItems.Count == 0 and event.NewValue == CheckState.Unchecked:\r\n\t\t\t\t\trbnone.Checked = False\r\n\t\t\t\t\trball.Checked = False\r\n\t\t\t\telif sender.CheckedItems.Count == sender.Items.Count and event.NewValue == CheckState.Unchecked:\r\n\t\t\t\t\trball.Checked = False\r\n\t\t\t\t\trbnone.Checked = False\r\n\t\t\t\telif sender.CheckedItems.Count == sender.Items.Count-1 and event.NewValue == CheckState.Checked:\r\n\t\t\t\t\trball.Checked = True\r\n\t\t\t\t\trbnone.Checked = False\r\n\t\t\t\telif sender.CheckedItems.Count == 1 and event.NewValue == CheckState.Unchecked:\r\n\t\t\t\t\trball.Checked = False\r\n\t\t\t\t\trbnone.Checked = True\t\t\t\r\n\t\t\t\telse :\r\n\t\t\t\t\trball.Checked = False\r\n\t\t\t\t\trbnone.Checked = False\r\n\t\t\texcept:\r\n\t\t\t\tpass\r\n\r\n\t\tdef zoomcenter(self, sender, event ):\r\n\t\t\tif event.X > 15:\t\t\r\n\t\t\t\ttry:\r\n\t\t\t\t\telement = doc.GetElement(uidoc.Selection.GetElementIds()[0])\r\n\t\t\t\t\tuidoc.ShowElements(element)\r\n\t\t\t\texcept:\r\n\t\t\t\t\tpass\r\n\t\t\telse:\r\n\t\t\t\tpass\r\n\t\t\t\t\r\n\t\t\t\r\n\t\tdef setviewforelement(self, sender, event ):\t\r\n\t\t\tif event.X > 15*xRatio:\t\t\t\t\r\n\t\t\t\ttry:\r\n\t\t\t\t\titem = sender.GetItemAt(event.X,event.Y).Text\r\n\t\t\t\t\telement = UnwrapElement(sender.Values[item])\r\n\t\t\t\t\ttry:\r\n\t\t\t\t\t\tviewsforelement = [v for v in dbviews if (not v.IsTemplate) and (element.Id in [e.Id for e in FilteredElementCollector(doc,v.Id).OfClass(element.__class__).ToElements()])]\r\n\t\t\t\t\texcept:\r\n\t\t\t\t\t\tviewsforelement = [v for v in dbviews if (not v.IsTemplate) and (element.Id in [e.Id for e in FilteredElementCollector(doc,v.Id).OfClass(FamilyInstance).ToElements()])]\r\n\t\t\t\t\tglobal viewindex\r\n\t\t\t\t\tdbView = viewsforelement[viewindex]\r\n\t\t\t\t\tid = [element.Id]\r\n\t\t\t\t\ticollection = iList[ElementId](id)\r\n\t\t\t\t\tuidoc.Selection.SetElementIds(icollection)\r\n\t\t\t\texcept:\r\n\t\t\t\t\tpass\r\n\t\t\telse:\t\t\r\n\t\t\t\tpass\r\n\r\n\r\n\t\tdef CheckChildren(self, sender, event ):\r\n\t\t\tevNode = event.Node\t\t\r\n\t\t\tcheckState = evNode.Checked \r\n\t\t\tfor n in event.Node.Nodes:\t\t\r\n\t\t\t\tn.Checked = checkState\t\t\t\r\n\t\t\t\t\r\n\t\tdef ActivateOption(self, sender, event ):\r\n\t\t\tparent = sender.Parent\r\n\t\t\tassociatedControls = [p for p in parent.Controls if p.Name == sender.Text and p.GetType() == Panel][0]\r\n\t\t\trestofcontrols = [p for p in parent.Controls if p.Name != sender.Text and p.GetType() == Panel]\r\n\t\t\tif sender.Checked:\r\n\t\t\t\tassociatedControls.Enabled = True\r\n\t\t\t\tfor c in restofcontrols:\r\n\t\t\t\t\tc.Enabled = False\r\n\t\t\t\tparent.Tag = sender.Text\r\n\t\t\t\t\r\n\t\tdef showtooltip(self, sender, event ):\r\n\t\t\tttp = ToolTip()\r\n\t\t\tttp.AutoPopDelay = 10000\r\n\t\t\tttp.SetToolTip(sender , sender.Tag) \r\n\r\n\t\tdef numsOnly(self, sender, event ):\r\n\t\t\tif Char.IsDigit(event.KeyChar)==False and event.KeyChar != \".\" and Char.IsControl(event.KeyChar)==False:\r\n\t\t\t\tevent.Handled = True\r\n\t\t\r\n\t\tdef chart_showLabels(self, sender, event):\r\n\t\t\tcb = sender\r\n\t\t\tpanelcht = sender.Parent\r\n\t\t\tchart1 = panelcht.GetChildAtPoint(Point(0,0))\r\n\t\t\tfor s in chart1.Series:\r\n\t\t\t\tif s.ChartType == SeriesChartType.Pie:\r\n\t\t\t\t\tif cb.Checked:\r\n\t\t\t\t\t\ts[\"PieLabelStyle\"] = \"Inside\"\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\ts[\"PieLabelStyle\"] = \"Disabled\"\r\n\t\t\t\telse:\r\n\t\t\t\t\tif cb.Checked:\r\n\t\t\t\t\t\ts.IsValueShownAsLabel = True\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\ts.IsValueShownAsLabel = False\r\n\t\t\t\t\r\n\t\tdef imageexport(self, sender, event):\r\n\t\t\timport datetime\r\n\t\t\tfrom datetime import datetime\r\n\t\t\tfrom RevitServices.Transactions import TransactionManager\r\n\t\t\t#Modify resolution before the render\r\n\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\tpanelcht = sender.Parent\r\n\t\t\tchart1 = panelcht.GetChildAtPoint(Point(0,0))\r\n\t\t\toriginalTitleFont = chart1.Titles[0].Font\r\n\t\t\toriginalWidth = chart1.Width\r\n\t\t\toriginalHeight = chart1.Height\r\n\t\t\tchart1.Visible = False\r\n\t\t\tchart1.Dock = DockStyle.None\r\n\t\t\tchart1.Width = 2100 * 0.8\r\n\t\t\tchart1.Height = 1500 * 0.8\r\n\t\t\tchart1.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.None\r\n\t\t\tchart1.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None\r\n\t\t\tchart1.ChartAreas[0].AxisX.LabelStyle.Font = Font(fontFam, 30)\r\n\t\t\tchart1.ChartAreas[0].AxisY.LabelStyle.Font = Font(fontFam, 30)\r\n\t\t\tchart1.ChartAreas[0].AxisX.TitleFont = Font(fontFam, 30)\r\n\t\t\tchart1.ChartAreas[0].AxisY.TitleFont = Font(fontFam, 30)\r\n\t\t\tchart1.TextAntiAliasingQuality = TextAntiAliasingQuality.High\r\n\t\t\tchart1.BackColor = Color.White\r\n\t\t\tchart1.Titles[0].Font = Font(fontFam, 32, FontStyle.Bold)\r\n\t\t\tchart1.ChartAreas[0].BackColor = Color.White\r\n\t\t\tfor serie in chart1.Series:\r\n\t\t\t\tserie.Font = Font(fontFam, 30)\r\n\t\t\t\tfor p in serie.Points:\r\n\t\t\t\t\tp.Font = Font(fontFam, 30)\r\n\t\t\t\t\tp.MarkerSize = 15\r\n\t\t\tfor legend in chart1.Legends:\r\n\t\t\t\tlegend.Font = Font(fontFam, 30)\r\n\t\t\t\tlegend.BackColor = Color.White\r\n\t\t\tchart1.Invalidate()\r\n\t\t\tchart1.SaveImage(tempfile.gettempdir() + \"\\\\chartImage.bmp\", ChartImageFormat.Bmp)\r\n\t\t\t#Get back to original settings\r\n\t\t\tchart1.Width = originalWidth\r\n\t\t\tchart1.Height = originalHeight\r\n\t\t\tchart1.BackColor = Color.Transparent\r\n\t\t\tchart1.ChartAreas[0].BackColor = Color.Transparent\r\n\t\t\tchart1.ChartAreas[0].AxisX.LabelStyle.Font = originalFont\r\n\t\t\tchart1.ChartAreas[0].AxisY.LabelStyle.Font = originalFont\r\n\t\t\tchart1.ChartAreas[0].AxisX.TitleFont = originalFont\r\n\t\t\tchart1.ChartAreas[0].AxisY.TitleFont = originalFont\r\n\t\t\tchart1.Titles[0].Font = originalTitleFont\r\n\t\t\tfor serie in chart1.Series:\r\n\t\t\t\tserie.Font = originalFont\r\n\t\t\t\tfor p in serie.Points:\r\n\t\t\t\t\tp.Font = originalFont\r\n\t\t\t\t\tp.MarkerSize = 8\r\n\t\t\tfor legend in chart1.Legends:\r\n\t\t\t\tlegend.Font = originalFont\r\n\t\t\t\tlegend.BackColor = Color.Transparent\r\n\t\t\tchart1.Invalidate()\r\n\t\t\tchart1.Visible = True\r\n\t\t\t#Import the picture in a Drafting View\r\n\t\t\t#Import the picture in a Drafting View // The try catch if for handling the fact that ImageImportOptions was deprecated in 2020 and is obsolete in 2021\t\t\t\t\t  \r\n\t\t\tcollector = FilteredElementCollector(doc).OfClass(ViewFamilyType)\r\n\t\t\tviewFamilyTypes = []\r\n\t\t\tfor c in collector:\r\n\t\t\t\tif c.ViewFamily == ViewFamily.Drafting:\r\n\t\t\t\t\tviewFamilyTypes.append(c)\r\n\t\t\tviewFamilyType = viewFamilyTypes[0]\r\n\t\t\tTransactionManager.Instance.EnsureInTransaction(doc)\r\n\t\t\tdraftView = ViewDrafting.Create(doc,viewFamilyType.Id)\r\n\t\t\tdraftView.Name = chart1.Titles[0].Text + datetime.now().strftime(\" (%m/%d/%Y, %H.%M.%S)\")\r\n\t\t\timagePath = tempfile.gettempdir() + \"\\\\chartImage.bmp\"\r\n\t\t\tnewElement = clr.StrongBox[Element]()\r\n\t\t\ttry:\r\n\t\t\t\timportOptions = ImageImportOptions()\t\r\n\t\t\t\timportOptions.Resolution = 72\r\n\t\t\t\timportOptions.Placement = BoxPlacement.TopLeft\t\t\t\t\r\n\t\t\t\tdoc.Import(imagePath,importOptions,draftView,newElement)\t\t\t\r\n\t\t\texcept:\r\n\t\t\t\ttry:\r\n\t\t\t\t\timageTypeOption = ImageTypeOptions()   \r\n\t\t\t\t\timageTypeOption.SetPath(imagePath)\t\t\t\t\t\t\t\t\r\n\t\t\t\texcept:\r\n\t\t\t\t\timageTypeOption = ImageTypeOptions(imagePath,False,ImageTypeSource.Import)\r\n\t\t\t\timageTypeOption.Resolution = 72\t\t\t\t   \r\n\t\t\t\timageType = ImageType.Create(doc,imageTypeOption)\r\n\t\t\t\tplacementOptions = ImagePlacementOptions(XYZ(0,0,0),BoxPlacement.TopLeft)\r\n\t\t\t\tImageInstance.Create(doc,draftView,imageType.Id,placementOptions)\t\t\t\t\r\n\t\t\tTransactionManager.Instance.TransactionTaskDone()\t\t\t\t\t \r\n\t\tdef chart_showLegend(self, sender, event ):\r\n\t\t\tcb = sender\r\n\t\t\tpanelcht = sender.Parent\r\n\t\t\tchart1 = panelcht.GetChildAtPoint(Point(0,0))\r\n\t\t\tif len(chart1.Legends) <= 1:\r\n\t\t\t\tfor legend in chart1.Legends:\r\n\t\t\t\t\tif cb.Checked:\r\n\t\t\t\t\t\tlegend.Enabled = True\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\tlegend.Enabled = False\r\n\t\t\telse:\r\n\t\t\t\tif cb.Checked:\r\n\t\t\t\t\tchart1.Legends[1].Enabled = True\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Legends[1].Enabled = False\r\n\t\t\t\t\t\r\n\r\n\tclass mylistview(ListView):\r\n\t\r\n\t\tdef __init__(self):\r\n\t\t\tself.Values = []\r\n\r\n\tclass mytrackbar(TrackBar):\r\n\t\r\n\t\tdef __init__(self,startval,step):\r\n\t\t\tself.startval = startval\r\n\t\t\tself.step = step\r\n\r\n\tclass myDataGridView(DataGridView):\r\n\t\r\n\t\tdef __init__(self):\r\n\t\t\tself.startcell = {}\r\n\t\t\tself.endcell = {}\r\n\t\t\t\r\n\tclass mygroupbox(GroupBox):\r\n\t\r\n\t\tdef __init__(self):\r\n\t\t\tself.Values = []\r\n\t\t\t\r\n\tclass myTextBox(TextBox):\r\n\t\r\n\t\tdef __init__(self):\r\n\t\t\tself._isNum = False\r\n\t\r\n\t\t\t\r\n\t#Form initialization\r\n\t\r\n\tform = MultiTextBoxForm()\r\n\txRatio = Screen.PrimaryScreen.Bounds.Width/1920\r\n\tif xRatio == 0:\r\n\t\txRatio = 1\r\n\tyRatio = Screen.PrimaryScreen.Bounds.Height/1080\r\n\tif yRatio == 0:\r\n\t\tyRatio = 1\r\n\tform.topmost()\t\r\n\tform.ControlBox = True\r\n\txlabel = 25 * xRatio\r\n\txinput = 150 * xRatio\r\n\tformy = 10 * yRatio\r\n\tif IN[8] * xRatio > (350 * xRatio): formwidth = IN[8] * xRatio\r\n\telse: formwidth = 350 * xRatio\r\n\tfields = []\r\n\terror = 0\r\n\t\r\n\t#Description \r\n\t\r\n\tif IN[3] != \"\":\r\n\t\tdes = Label()\r\n\t\tdes.Location = Point(xlabel,formy)\r\n\t\tdes.Font = Font(\"Arial\", 15,FontStyle.Bold)\t\t\r\n\t\tdes.AutoSize = True\r\n\t\tdes.MaximumSize = Size(formwidth - (2 * xlabel)*xRatio,0)\r\n\t\tdes.Text = IN[3]\r\n\t\tform.Controls.Add(des)\r\n\t\tformy = des.Bottom + (15*xRatio)\r\n\tformheaderheight = formy\r\n\t\r\n\t#Input form\r\n\t\r\n\t# Create a container panel for all inputs\r\n\tbody = Panel()\r\n\tbody.Location = Point(0,formy)\r\n\tbody.Width = formwidth - 15*xRatio\r\n\t\r\n\t\r\n\t# Process form inputs\r\n\tif isinstance(IN[0],list):\r\n\t\tinputtypes = IN[0]\r\n\telse:\r\n\t\tinputtypes = [IN[0]]\r\n\t# This definition is to handle the sorting of special characters\r\n\tdef remove_accents(input_str):\r\n\t\tnfkd_form = unicodedata.normalize('NFKD', input_str)\r\n\t\tonly_ascii = nfkd_form.encode('ASCII', 'ignore')\r\n\t\treturn only_ascii\t\r\n\r\n\t#Adding Logo \r\n\t#default logo in case no input\t\r\n\tdef getImageByName(ImName):\r\n\t\tdynamo = Assembly.Load('DynamoCore')\r\n\t\tversion = str(dynamo.GetName().Version)[:3]\t\t\r\n\t\tdynPath = os.getenv('APPDATA')+\"\\\\Dynamo\\Dynamo Revit\\\\\" + version \r\n\t\troot = et.parse(dynPath + \"\\DynamoSettings.xml\").getroot()\r\n\t\tlogopaths = []\r\n\t\tfor child in root:\r\n\t\t\tif child.tag == \"CustomPackageFolders\":\r\n\t\t\t\tfor path in child:\r\n\t\t\t\t\tlogopaths.append(path.text + \"\\packages\\Data-Shapes\\extra\\\\\" + ImName)\r\n\t\t\t\t\tlogopaths.append(path.text + \"\\Data-Shapes\\extra\\\\\" + ImName)\r\n\t\tdeflogopath = \"\"\r\n\t\tfor path in logopaths:\r\n\t\t\tif deflogopath == \"\":\r\n\t\t\t\tif os.path.isfile(path):\r\n\t\t\t\t\tdeflogopath = path\r\n\t\t\t\t\ttry:\r\n\t\t\t\t\t\tima = Image.FromFile(deflogopath)\r\n\t\t\t\t\t\tbmp = Bitmap.FromFile(deflogopath)\r\n\t\t\t\t\t\treturn ima,bmp\r\n\t\t\t\t\texcept: \r\n\t\t\t\t\t\tpass\r\n\t\t\t\t\t\t\r\n\ttry:\r\n\t\tif IN[4] != '':\r\n\t\t\ttry:\r\n\t\t\t\tima = Image.FromFile(IN[4])\r\n\t\t\t\tbmp = Bitmap.FromFile(IN[4])\r\n\t\t\texcept:\r\n\t\t\t\tima = IN[4]\r\n\t\t\t\tbmp = IN[4]\r\n\r\n\t\telse :\r\n\t\t\t_ims = getImageByName(\"a.png\")\r\n\t\t\tima = _ims[0]\r\n\t\t\tbmp = _ims[1]\r\n\t\t\t\r\n\t\tlogo = Panel()\r\n\t\tif IN[6] == None:\r\n\t\t\txlogo = 20 * xRatio\r\n\t\t\tylogo = formy+ 10*yRatio\r\n\t\telse:\r\n\t\t\txlogo = 30 * xRatio\r\n\t\t\tylogo = formy\r\n\t\tsize = 110 * xRatio\r\n\t\tlogo = PictureBox()\r\n\t\tratio = (ima.Height)/(ima.Width)\r\n\t\th = float(ima.Height)\r\n\t\tw = float(ima.Width)\r\n\t\tratio = h/w\r\n\t\tlogo.Size = Size(size,size*ratio)\r\n\t\tscaledimage = Bitmap(size,size*ratio)\r\n\t\tgr = Graphics.FromImage(scaledimage)\r\n\t\tgr.DrawImage(ima,0,0,size,size*ratio)\r\n\t\tlogo.Image = ima\r\n\t\tlogo.SizeMode = PictureBoxSizeMode.Zoom\r\n\t\tform.Controls.Add(logo)\r\n\t\tlogo.Location = Point(xlogo,ylogo)\r\n\t\t\r\n\t\t\r\n\t\t#Setting icon \r\n\t\tthumb = bmp.GetThumbnailImage(64, 64, bmp.GetThumbnailImageAbort,IntPtr.Zero)\r\n\t\tthumb.MakeTransparent();\r\n\t\ticon = Icon.FromHandle(thumb.GetHicon())\r\n\t\tform.Icon = icon\r\n\r\n\texcept :\r\n\t\tlogo = Panel()\r\n\t\tlogo.Width = 110 * xRatio\r\n\t\tlogo.Height = 110 * yRatio\r\n\t\r\n\tdef addinput(formbody,inputs,starty,xinput,rightmargin,labelsize,importcolorselection):\r\n\t\ty = starty\r\n\t\tfor j in inputs:\r\n\t\t\tlabel = Label()\r\n\t\t\tlabel.Location = Point(xlabel,y+4*yRatio)\r\n\t\t\tlabel.AutoSize = True\r\n\t\t\tlabel.MaximumSize = Size(labelsize,0)\r\n\t\t\tif j.__class__.__name__ == 'listview' and j.element_count > 0:\r\n\t\t\t\tlabel.Text = j.inputname + '\\n(' + str(j.element_count) + ' element' + (\"s\" if j.element_count > 1 else \"\") + ')'\r\n\t\t\telse:\r\n\t\t\t\ttry:\r\n\t\t\t\t\tlabel.Text = j.inputname\r\n\t\t\t\texcept:\r\n\t\t\t\t\tpass\r\n\t\t\tformbody.Controls.Add(label)\r\n\t\r\n\t\t\tif j.__class__.__name__ == 'dropdown':\r\n\t\t\t\tcb = ComboBox()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tcb.Width = formbody.Width - 25*xRatio  - xinput\r\n\t\t\t\t\tcb.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcb.Width = formbody.Width - 25*xRatio  - xlabel\r\n\t\t\t\t\tcb.Location = Point(xlabel,y)\r\n\t\t\t\tcb.Sorted = j._sorted\r\n\t\t\t\t[cb.Items.Add(i) for i in j.keys() if not (i == 'inputname' or i == 'height' or i == 'defaultvalue' or i == 'highlight' or i == '_sorted' )]\r\n\t\t\t\tcb.Tag = j\r\n\t\t\t\tif j.defaultvalue != None:\r\n\t\t\t\t\tdefindex = [i for i in cb.Items].index([i for i in j.keys() if not (i == 'inputname' or i == 'height' or i == 'defaultvalue' or i == 'highlight' or i == '_sorted' )][j.defaultvalue])\r\n\t\t\t\t\tcb.SelectedIndex = defindex\r\n\t\t\t\tformbody.Controls.Add(cb)\r\n\t\t\t\tform.output.append(cb)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\t#CHARTS \r\n\t\t\tif j.__class__.__name__ == 'uipiechart':\t\t\t\t\t\r\n\t\t\t\tlabels = j.xseries\r\n\t\t\t\tinputcolors = j.inputcolors\r\n\t\t\t\tpyList = []\r\n\t\t\t\txseries = [j.xseries]\r\n\t\t\t\tyseries = [j.yseries]\r\n\t\t\t\tnbOfSeries = 1\r\n\t\t\t\tif inputcolors is not None:\r\n\t\t\t\t\tcolorBool = True\r\n\t\t\t\t\tfor color in inputcolors:\r\n\t\t\t\t\t\tpyList.append(Color.FromArgb(color.Red,color.Green,color.Blue))\r\n\t\t\t\t\twfColor = Array[Color](pyList)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcolorBool = False\r\n\t\t\t\t#Set a global Font code\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\t\t#Chart created and Panel to host the chart\r\n\t\t\t\tchart1 = Chart()\r\n\t\t\t\tpanelChart = Panel()\r\n\t\t\t\tpanelChart.Name = \"panelChart\"\r\n\t\t\t\t#Panels colors\r\n\t\t\t\tchart1.BackColor = formbody.BackColor\r\n\t\t\t\tpanelChart.BackColor = Color.Transparent\r\n\t\t\t\t#PanelChart location\r\n\t\t\t\tpanelChart.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\tpanelChart.Location = Point(xlabel,y + 30)\r\n\t\t\t\t#Chart colors palette\r\n\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tif colorBool:\r\n\t\t\t\t\tchart1.PaletteCustomColors = wfColor\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tchart1.Series.Clear()\r\n\t\t\t\t#Series created\r\n\t\t\t\tlabel = SmartLabelStyle()\r\n\t\t\t\tdef createSeries(seriesName,_keys,_values):\r\n\t\t\t\t\tsrs = Series()\r\n\t\t\t\t\tsrs[\"PieLabelStyle\"] = \"Inside\"\r\n\t\t\t\t\tsrs.Name = seriesName\r\n\t\t\t\t\tsrs.ChartType = SeriesChartType.Pie\r\n\t\t\t\t\tsrs.ToolTip = \"Percent: #PERCENT\"\r\n\t\t\t\t\tsrs.IsValueShownAsLabel = True\r\n\t\t\t\t\tfor i,j in zip(_keys,_values):\r\n\t\t\t\t\t\tsrs.Points.AddXY(i,j)\r\n\t\t\t\t\treturn srs\r\n\t\t\t\t#Create series\r\n\t\t\t\tseries = []\r\n\t\t\t\tfor i in range(0,len(xseries)):\r\n\t\t\t\t\tseries.append(createSeries(labels[i],xseries[i],yseries[i]))\r\n\t\t\t\t#Add series to chart\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tchart1.Series.Add(s)\r\n\t\t\t\t#Legend text of the points\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tfor p in s.Points: \r\n\t\t\t\t\t\tp.Font = originalFont\r\n\t\t\t\t#Refresh the Chart\r\n\t\t\t\tchart1.Invalidate()\r\n\t\t\t\t#Create a ChartArea and add it to the chart\r\n\t\t\t\tchartArea1 = ChartArea()\r\n\t\t\t\tchartArea1.BackColor = formbody.BackColor\r\n\t\t\t\tchartArea1.Name = \"ChartArea1\"\r\n\t\t\t\tchart1.ChartAreas.Add(chartArea1)\t\t\t\t\r\n\t\t\t\t#Create a Legend and add it to the chart\r\n\t\t\t\tlegend1 = Legend()\r\n\t\t\t\tlegend1.BackColor = formbody.BackColor\r\n\t\t\t\tlegend1.Font = originalFont\r\n\t\t\t\tlegend1.Name = \"Legend1\"\r\n\t\t\t\tlegend1.IsTextAutoFit = True\r\n\t\t\t\tlegend1.LegendStyle = LegendStyle.Column\r\n\t\t\t\tchart1.Legends.Add(legend1)\r\n\t\t\t\t#Initialize the chart and its properties\r\n\t\t\t\tchart1.BeginInit()\r\n\t\t\t\tchart1.Size = Size(panelChart.Width,panelChart.Width)\r\n\t\t\t\tchart1.AntiAliasing = AntiAliasingStyles.All\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\ttitleFont = Font(fontFam,10,FontStyle.Bold)\r\n\t\t\t\ttitle = Title()\r\n\t\t\t\ttitle.Text = j.chartname\r\n\t\t\t\ttitle.Alignment = ContentAlignment.TopLeft\r\n\t\t\t\ttitle.Font = titleFont\r\n\t\t\t\tchart1.Titles.Add(title)\r\n\t\t\t\t#Add a button to push on view\r\n\t\t\t\tbt = Button()\r\n\t\t\t\tbt.Tag = \"Push the chart on a view in Revit\"\r\n\t\t\t\tbt.Text = \"Push on a draft view\"\r\n\t\t\t\tbt.Height = 20 * yRatio\r\n\t\t\t\tbt.Width = 140 * yRatio\t\t\t\t\r\n\t\t\t\tpanelChart.Controls.Add(bt)\r\n\t\t\t\tbt.BringToFront()\r\n\t\t\t\tbt.Font = originalFont\r\n\t\t\t\tbt.Click += form.imageexport\r\n\t\t\t\t#Add a checkBox to show/hide legend\r\n\t\t\t\tcheckBox1 = CheckBox()\r\n\t\t\t\tcheckBox1.AutoCheck = True\r\n\t\t\t\tcheckBox1.Name = \"checkBox1\"\r\n\t\t\t\tcheckBox1.Text = \"Legend\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox1)\r\n\t\t\t\tcheckBox1.BringToFront()\r\n\t\t\t\tcheckBox1.Checked = True\r\n\t\t\t\tcheckBox1.Font = originalFont\r\n\t\t\t\tcheckBox1.AutoSize = True\r\n\t\t\t\tcheckBox1.Click += form.chart_showLegend\r\n\t\t\t\t#Add a checkBox to show/hide labels\r\n\t\t\t\tcheckBox2 = CheckBox()\r\n\t\t\t\tcheckBox2.AutoCheck = True\r\n\t\t\t\tcheckBox2.Name = \"checkBox2\"\r\n\t\t\t\tcheckBox2.Text = \"Labels\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox2)\r\n\t\t\t\tcheckBox2.BringToFront()\r\n\t\t\t\tcheckBox2.Checked = True\r\n\t\t\t\tcheckBox2.Font = originalFont\r\n\t\t\t\tcheckBox2.AutoSize = True\r\n\t\t\t\tcheckBox2.Click += form.chart_showLabels\r\n\t\t\t\t\r\n\t\t\t\tpanelChart.Size = Size(panelChart.Width, panelChart.Width + checkBox2.Height + 30)\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Controls.Add(chart1)\r\n\t\t\t\tchart1.Location = Point(0,0)\r\n\t\t\t\tbt.Location = Point(panelChart.Width - bt.Width, panelChart.Width + 15)\r\n\t\t\t\tcheckBox1.Location = Point(panelChart.Width - bt.Width - 80, panelChart.Width + 15)\r\n\t\t\t\tcheckBox2.Location = Point(panelChart.Width - bt.Width - 160, panelChart.Width + 15)\r\n\t\t\t\tformbody.Controls.Add(panelChart)\r\n\t\t\t\t\r\n\t\t\t\ty = panelChart.Bottom + 25 * yRatio\r\n\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uibarchart':\r\n\t\t\t\tif isinstance(j.labels,list):\r\n\t\t\t\t\tlabels = j.labels\r\n\t\t\t\telse:\r\n\t\t\t\t\tlabels = [j.labels]\r\n\t\t\t\tinputcolors = j.inputcolors\r\n\t\t\t\thorizont = j.ishorizontal\r\n\t\t\t\tpyList = []\r\n\t\t\t\tif isinstance(j.xseries[0],list) and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.xseries[0],list) == False and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.yseries)\r\n\t\t\t\t\txseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\txseries.append(j.xseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.yseries[0],list) == False and isinstance(j.xseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\tyseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\tyseries.append(j.yseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\telse:\r\n\t\t\t\t\txseries = [j.xseries]\r\n\t\t\t\t\tyseries = [j.yseries]\r\n\t\t\t\t\tnbOfSeries = 1\r\n\t\t\t\tif inputcolors is not None:\r\n\t\t\t\t\tcolorBool = True\r\n\t\t\t\t\tfor color in inputcolors:\r\n\t\t\t\t\t\tpyList.append(Color.FromArgb(color.Red,color.Green,color.Blue))\r\n\t\t\t\t\twfColor = Array[Color](pyList)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcolorBool = False\r\n\t\t\t\t#Set a global Font code\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\t\t#Chart created and Panel to host the chart\r\n\t\t\t\tchart1 = Chart()\r\n\t\t\t\tpanelChart = Panel()\r\n\t\t\t\tpanelChart.Name = \"panelChart\"\r\n\t\t\t\t#Panels colors\r\n\t\t\t\tchart1.BackColor = formbody.BackColor\r\n\t\t\t\tpanelChart.BackColor = Color.Transparent\r\n\t\t\t\t#PanelChart location\r\n\t\t\t\tpanelChart.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\tpanelChart.Location = Point(xlabel,y + 30)\t\t\t\t\r\n\t\t\t\t#Chart colors palette\r\n\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tif colorBool:\r\n\t\t\t\t\tchart1.PaletteCustomColors = wfColor\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tchart1.Series.Clear()\r\n\t\t\t\t#Series created\r\n\t\t\t\tdef createSeries(seriesName,_keys,_values,_horizont):\r\n\t\t\t\t\tsrs = Series()\r\n\t\t\t\t\tsrs.Name = seriesName\r\n\t\t\t\t\tif _horizont:\r\n\t\t\t\t\t\tsrs.ChartType = SeriesChartType.Bar\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\tsrs.ChartType = SeriesChartType.Column\r\n\t\t\t\t\tsrs.ToolTip = \"Percent: #PERCENT\"\r\n\t\t\t\t\tsrs.IsValueShownAsLabel = True\r\n\t\t\t\t\tsrs.Font = originalFont\r\n\t\t\t\t\tfor i,j in zip(_keys,_values):\r\n\t\t\t\t\t\tsrs.Points.AddXY(i,j)\r\n\t\t\t\t\treturn srs\r\n\t\t\t\t#Create series\r\n\t\t\t\tseries = []\r\n\t\t\t\tfor i in range(0,nbOfSeries):\r\n\t\t\t\t\tseries.append(createSeries(labels[i],xseries[i],yseries[i],horizont))\r\n\t\t\t\t#Add series to chart\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tchart1.Series.Add(s)\r\n\t\t\t\t#Refresh the Chart\r\n\t\t\t\tchart1.Invalidate()\r\n\t\t\t\t#Create a ChartArea and add it to the chart\r\n\t\t\t\tchartArea1 = ChartArea()\r\n\t\t\t\tchartArea1.BackColor = formbody.BackColor\r\n\t\t\t\tchartArea1.Name = \"ChartArea1\"\r\n\t\t\t\tchartArea1.AxisX.Title = j.xaxislabel\r\n\t\t\t\tchartArea1.AxisY.Title = j.yaxislabel\r\n\t\t\t\tchart1.ChartAreas.Add(chartArea1)\r\n\t\t\t\t#Create a Legend and add it to the chart\r\n\t\t\t\tlegend1 = Legend()\r\n\t\t\t\tlegend1.BackColor = formbody.BackColor\r\n\t\t\t\tlegend1.Font = originalFont\r\n\t\t\t\tlegend1.Name = \"Legend1\"\r\n\t\t\t\tlegend1.Docking = Docking.Right\r\n\t\t\t\tchart1.Legends.Add(legend1) \r\n\t\t\t\t#Initialize the chart and its properties\r\n\t\t\t\tchart1.BeginInit()\r\n\t\t\t\tchart1.Size = Size(panelChart.Width,panelChart.Width)\r\n\t\t\t\tchart1.AntiAliasing = AntiAliasingStyles.All\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\ttitleFont = Font(fontFam,10,FontStyle.Bold)\r\n\t\t\t\ttitle = Title()\r\n\t\t\t\ttitle.Text = j.chartname\r\n\t\t\t\ttitle.Alignment = ContentAlignment.TopLeft\r\n\t\t\t\ttitle.Font = titleFont\r\n\t\t\t\tchart1.Titles.Add(title)\r\n\t\t\t\t#Add a button to push on view\r\n\t\t\t\tbt = Button()\r\n\t\t\t\tbt.Tag = \"Push the chart on a view in Revit\"\r\n\t\t\t\tbt.Text = \"Push on a draft view\"\r\n\t\t\t\tbt.Height = 20 * yRatio\r\n\t\t\t\tbt.Width = 140 * yRatio\t\t\t\r\n\t\t\t\tpanelChart.Controls.Add(bt)\r\n\t\t\t\tbt.BringToFront()\r\n\t\t\t\tbt.Click += form.imageexport\r\n\t\t\t\t#Add a checkBox to show/hide legend\r\n\t\t\t\tcheckBox1 = CheckBox()\r\n\t\t\t\tcheckBox1.AutoCheck = True\r\n\t\t\t\tcheckBox1.Name = \"checkBox1\"\r\n\t\t\t\tcheckBox1.Text = \"Legend\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox1)\r\n\t\t\t\tcheckBox1.BringToFront()\r\n\t\t\t\tcheckBox1.Checked = True\r\n\t\t\t\tcheckBox1.Font = originalFont\r\n\t\t\t\tcheckBox1.AutoSize = True\r\n\t\t\t\tcheckBox1.Click += form.chart_showLegend\r\n\t\t\t\t#Add a checkBox to show/hide labels\r\n\t\t\t\tcheckBox2 = CheckBox()\r\n\t\t\t\tcheckBox2.AutoCheck = True\r\n\t\t\t\tcheckBox2.Name = \"checkBox2\"\r\n\t\t\t\tcheckBox2.Text = \"Labels\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox2)\r\n\t\t\t\tcheckBox2.BringToFront()\r\n\t\t\t\tcheckBox2.Checked = True\r\n\t\t\t\tcheckBox2.Font = originalFont\r\n\t\t\t\tcheckBox2.AutoSize = True\r\n\t\t\t\tcheckBox2.Click += form.chart_showLabels\r\n\t\t\t\t\r\n\t\t\t\tpanelChart.Size = Size(panelChart.Width, panelChart.Width + checkBox2.Height + 20)\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Controls.Add(chart1)\r\n\t\t\t\tchart1.Location = Point(0,0)\r\n\t\t\t\tbt.Location = Point(panelChart.Width - bt.Width, panelChart.Width + 15)\r\n\t\t\t\tcheckBox1.Location = Point(panelChart.Width - bt.Width - 80, panelChart.Width + 15)\r\n\t\t\t\tcheckBox2.Location = Point(panelChart.Width - bt.Width - 160, panelChart.Width + 15)\r\n\t\t\t\tformbody.Controls.Add(panelChart)\r\n\t\t\t\t\r\n\t\t\t\ty = panelChart.Bottom + 25 * yRatio\r\n\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uiradarchart':\r\n\t\t\t\tif isinstance(j.labels,list):\r\n\t\t\t\t\tlabels = j.labels\r\n\t\t\t\telse:\r\n\t\t\t\t\tlabels = [j.labels]\r\n\t\t\t\tinputcolors = j.inputcolors\r\n\t\t\t\tpyList = []\r\n\t\t\t\tif isinstance(j.xseries[0],list) and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.xseries[0],list) == False and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.yseries)\r\n\t\t\t\t\txseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\txseries.append(j.xseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.yseries[0],list) == False and isinstance(j.xseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\tyseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\tyseries.append(j.yseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\telse:\r\n\t\t\t\t\txseries = [j.xseries]\r\n\t\t\t\t\tyseries = [j.yseries]\r\n\t\t\t\t\tnbOfSeries = 1\r\n\t\t\t\tif inputcolors is not None:\r\n\t\t\t\t\tcolorBool = True\r\n\t\t\t\t\tfor color in inputcolors:\r\n\t\t\t\t\t\tpyList.append(Color.FromArgb(color.Red,color.Green,color.Blue))\r\n\t\t\t\t\twfColor = Array[Color](pyList)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcolorBool = False\r\n\t\t\t\t#Set a global Font code\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\t\t#Chart created and Panel to host the chart\r\n\t\t\t\tchart1 = Chart()\r\n\t\t\t\tpanelChart = Panel()\r\n\t\t\t\tpanelChart.Name = \"panelChart\"\r\n\t\t\t\t#Create a panel for buttons\r\n\t\t\t\tpanelCtrls = Panel()\r\n\t\t\t\t#Panels colors\r\n\t\t\t\tchart1.BackColor = formbody.BackColor\r\n\t\t\t\tpanelChart.BackColor = Color.Transparent\r\n\t\t\t\tpanelCtrls.BackColor = Color.Transparent\r\n\t\t\t\t#PanelChart location\r\n\t\t\t\tpanelChart.Width = formbody.Width - 25*xRatio- xlabel\r\n\t\t\t\tpanelChart.Location = Point(xlabel,y + 30)\t\t\t\t\r\n\t\t\t\tautoheight = 250 * yRatio\t\t\t\r\n\t\t\t\tpanelChart.Height = autoheight + 73 * yRatio\r\n\t\t\t\tratio = (panelChart.Height)/(panelChart.Width)\r\n\t\t\t\th = float(panelChart.Height)\r\n\t\t\t\tw = float(panelChart.Width)\r\n\t\t\t\tratio = h/w\r\n\t\t\t\tchart_maxsize = formbody.Width - 25*xRatio - xlabel - rightmargin\r\n\t\t\t\tpanelChart.Size = Size(chart_maxsize,chart_maxsize*ratio)\t\t\t\t\r\n\t\t\t\t#Chart colors palette\r\n\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tif colorBool:\r\n\t\t\t\t\tchart1.PaletteCustomColors = wfColor\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tchart1.Series.Clear()\r\n\t\t\t\t#Series created\r\n\t\t\t\tdef createSeries(seriesName,_keys,_values):\r\n\t\t\t\t\tsrs = Series()\r\n\t\t\t\t\tsrs.Name = seriesName\r\n\t\t\t\t\tsrs.ChartType = SeriesChartType.Radar\r\n\t\t\t\t\tsrs.ToolTip = \"Percent: #PERCENT\"\r\n\t\t\t\t\tsrs.IsValueShownAsLabel = True\r\n\t\t\t\t\tsrs.Font = originalFont\r\n\t\t\t\t\tsrs.BorderWidth = 4\r\n\t\t\t\t\tfor i,j in zip(_keys,_values):\r\n\t\t\t\t\t\tsrs.Points.AddXY(i,j)\r\n\t\t\t\t\treturn srs\r\n\t\t\t\t#Create series\r\n\t\t\t\tseries = []\r\n\t\t\t\tfor i in range(0,nbOfSeries):\r\n\t\t\t\t\tseries.append(createSeries(labels[i],xseries[i],yseries[i]))\r\n\t\t\t\t#Add series to chart\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tchart1.Series.Add(s)\r\n\t\t\t\t#Refresh the Chart\r\n\t\t\t\tchart1.Invalidate()\r\n\t\t\t\t#Create a ChartArea and add it to the chart\r\n\t\t\t\tchartArea1 = ChartArea()\r\n\t\t\t\tchartArea1.BackColor = formbody.BackColor\r\n\t\t\t\tchartArea1.Name = \"ChartArea1\"\r\n\t\t\t\tchartArea1.AxisX.Title = j.xaxislabel\r\n\t\t\t\tchartArea1.AxisY.Title = j.yaxislabel\r\n\t\t\t\tchart1.ChartAreas.Add(chartArea1)\r\n\t\t\t\t#Create a Legend and add it to the chart\r\n\t\t\t\tlegend1 = Legend()\r\n\t\t\t\tlegend1.BackColor = formbody.BackColor\r\n\t\t\t\tlegend1.Font = originalFont\r\n\t\t\t\tlegend1.Name = \"Legend1\"\r\n\t\t\t\tchart1.Legends.Add(legend1) \r\n\t\t\t\t#Initialize the chart and its properties\r\n\t\t\t\tchart1.BeginInit()\r\n\t\t\t\tchart1.Dock = DockStyle.Fill\r\n\t\t\t\tchart1.AntiAliasing = AntiAliasingStyles.All\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\ttitleFont = Font(fontFam,10,FontStyle.Bold)\r\n\t\t\t\ttitle = Title()\r\n\t\t\t\ttitle.Text = j.chartname\r\n\t\t\t\ttitle.Alignment = ContentAlignment.TopLeft\r\n\t\t\t\ttitle.Font = titleFont\r\n\t\t\t\tchart1.Titles.Add(title)\r\n\t\t\t\t#Add a button to push on view\r\n\t\t\t\tbt = Button()\r\n\t\t\t\tbt.Tag = \"Push the chart on a view in Revit\"\r\n\t\t\t\tbt.Text = \"Push on a draft view\"\r\n\t\t\t\tbt.Height = 20 * yRatio\r\n\t\t\t\tbt.Width = 140 * yRatio\t\t\t\t\r\n\t\t\t\tpanelCtrls.Controls.Add(bt)\r\n\t\t\t\tbt.BringToFront()\r\n\t\t\t\tbt.Click += form.imageexport\r\n\t\t\t\t#Add a checkBox to show/hide legend\r\n\t\t\t\tcheckBox1 = CheckBox()\r\n\t\t\t\tcheckBox1.AutoCheck = True\r\n\t\t\t\tcheckBox1.Name = \"checkBox1\"\r\n\t\t\t\tcheckBox1.Text = \"Show/Hide legend\"\r\n\t\t\t\tpanelCtrls.Controls.Add(checkBox1)\r\n\t\t\t\tcheckBox1.BringToFront()\r\n\t\t\t\tcheckBox1.Checked = True\r\n\t\t\t\tcheckBox1.AutoSize = True\r\n\t\t\t\tcheckBox1.Click += form.chart_showLegend\r\n\t\t\t\t\r\n\t\t\t\t#Add a checkBox to show/hide labels\r\n\t\t\t\tcheckBox2 = CheckBox()\r\n\t\t\t\tcheckBox2.AutoCheck = True\r\n\t\t\t\tcheckBox2.Name = \"checkBox2\"\r\n\t\t\t\tcheckBox2.Text = \"Show/Hide labels\"\r\n\t\t\t\tpanelCtrls.Controls.Add(checkBox2)\r\n\t\t\t\tcheckBox2.BringToFront()\r\n\t\t\t\tcheckBox2.Checked = True\r\n\t\t\t\tcheckBox2.Font = originalFont\r\n\t\t\t\tcheckBox2.AutoSize = True\r\n\t\t\t\tcheckBox2.Click += form.chart_showLabels\r\n\t\t\t\t\r\n\t\t\t\tpanelChart.Size = Size(panelChart.Width, panelChart.Width + checkBox2.Height + 20)\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Controls.Add(chart1)\r\n\t\t\t\tchart1.Location = Point(0,0)\r\n\t\t\t\tbt.Location = Point(panelChart.Width - bt.Width, panelChart.Width + 15)\r\n\t\t\t\tcheckBox1.Location = Point(panelChart.Width - bt.Width - 80, panelChart.Width + 15)\r\n\t\t\t\tcheckBox2.Location = Point(panelChart.Width - bt.Width - 160, panelChart.Width + 15)\r\n\t\t\t\tformbody.Controls.Add(panelChart)\r\n\t\t\t\t\r\n\t\t\t\ty = panelChart.Bottom + 25 * yRatio\r\n\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uipointchart':\r\n\t\t\t\tif isinstance(j.labels,list):\r\n\t\t\t\t\tlabels = j.labels\r\n\t\t\t\telse:\r\n\t\t\t\t\tlabels = [j.labels]\r\n\t\t\t\tinputcolors = j.inputcolors\r\n\t\t\t\tpyList = []\r\n\t\t\t\tif isinstance(j.xseries[0],list) and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.xseries[0],list) == False and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.yseries)\r\n\t\t\t\t\txseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\txseries.append(j.xseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.yseries[0],list) == False and isinstance(j.xseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\tyseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\tyseries.append(j.yseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\telse:\r\n\t\t\t\t\txseries = [j.xseries]\r\n\t\t\t\t\tyseries = [j.yseries]\r\n\t\t\t\t\tnbOfSeries = 1\r\n\t\t\t\tif inputcolors is not None:\r\n\t\t\t\t\tcolorBool = True\r\n\t\t\t\t\tfor color in inputcolors:\r\n\t\t\t\t\t\tpyList.append(Color.FromArgb(color.Red,color.Green,color.Blue))\r\n\t\t\t\t\twfColor = Array[Color](pyList)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcolorBool = False\r\n\t\t\t\t#Set a global Font code\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\t\t#Chart created and Panel to host the chart\r\n\t\t\t\tchart1 = Chart()\r\n\t\t\t\tpanelChart = Panel()\r\n\t\t\t\tpanelChart.Name = \"panelChart\"\r\n\t\t\t\t#Panels colors\r\n\t\t\t\tchart1.BackColor = formbody.BackColor\r\n\t\t\t\tpanelChart.BackColor = Color.Transparent\r\n\t\t\t\t#PanelChart location\r\n\t\t\t\tpanelChart.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\tpanelChart.Location = Point(xlabel,y + 30)\t\t\t\t\r\n\t\t\t\t#Chart colors palette\r\n\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tif colorBool:\r\n\t\t\t\t\tchart1.PaletteCustomColors = wfColor\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tchart1.Series.Clear()\r\n\t\t\t\t#Series created\r\n\t\t\t\tdef createSeries(seriesName,_keys,_values):\r\n\t\t\t\t\tsrs = Series()\r\n\t\t\t\t\tsrs.Name = seriesName\r\n\t\t\t\t\tsrs.ChartType = SeriesChartType.Point\r\n\t\t\t\t\tsrs.ToolTip = \"Percent: #PERCENT\"\r\n\t\t\t\t\tsrs.IsValueShownAsLabel = True\r\n\t\t\t\t\tsrs.Font = originalFont\r\n\t\t\t\t\tfor i,j in zip(_keys,_values):\r\n\t\t\t\t\t\tsrs.Points.AddXY(i,j)\r\n\t\t\t\t\treturn srs\r\n\t\t\t\t#Create series\r\n\t\t\t\tseries = []\r\n\t\t\t\tfor i in range(0,nbOfSeries):\r\n\t\t\t\t\tseries.append(createSeries(labels[i],xseries[i],yseries[i]))\r\n\t\t\t\t#Add series to chart\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tchart1.Series.Add(s)\r\n\t\t\t\t#Change marker size\r\n\t\t\t\toriginalMarkerSize = 8\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tfor p in s.Points:\r\n\t\t\t\t\t\tp.MarkerSize = originalMarkerSize\r\n\t\t\t\t#Refresh the Chart\r\n\t\t\t\tchart1.Invalidate()\r\n\t\t\t\t#Create a ChartArea and add it to the chart\r\n\t\t\t\tchartArea1 = ChartArea()\r\n\t\t\t\tchartArea1.BackColor = formbody.BackColor\r\n\t\t\t\tchartArea1.Name = \"ChartArea1\"\r\n\t\t\t\tchartArea1.AxisX.Title = j.xaxislabel\r\n\t\t\t\tchartArea1.AxisY.Title = j.yaxislabel\r\n\t\t\t\tchart1.ChartAreas.Add(chartArea1)\r\n\t\t\t\tchartArea1 = chart1.ChartAreas[0]\r\n\t\t\t\t#Create a Legend and add it to the chart\r\n\t\t\t\tlegend1 = Legend()\r\n\t\t\t\tlegend2 = Legend()\r\n\t\t\t\t#Add legends to charts\r\n\t\t\t\tchart1.Legends.Add(legend1)\r\n\t\t\t\tchart1.Legends.Add(legend2)\r\n\t\t\t\t#Create Custom legend\r\n\t\t\t\tcustomevent = CustomizeLegendEventArgs(legend2.CustomItems)\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tlegend2.CustomItems.Add(LegendItem(s.Name.ToString(),s.Color,\"\"))\t\t\t\t\t\r\n\t\t\t\tdef chart_CustomizeLegend(sender, customevent ):\r\n\t\t\t\t\tchart1 = sender\r\n\t\t\t\t\t#legend1.Enabled = False\r\n\t\t\t\t\tlegend2.Name = \"Legend2\"\r\n\t\t\t\t\tfor s,it in zip(series,legend2.CustomItems):\r\n\t\t\t\t\t\tit.ImageStyle = LegendImageStyle.Marker\r\n\t\t\t\t\t\tit.MarkerStyle = s.MarkerStyle\r\n\t\t\t\t\t\tit.MarkerColor = s.Color\r\n\t\t\t\t\t\tit.BorderColor = Color.Transparent\r\n\t\t\t\t\t\tit.MarkerSize *= 1.3\r\n\t\t\t\tlegend1.Enabled = False\r\n\t\t\t\tlegend2.Font = originalFont\r\n\t\t\t\tlegend2.IsTextAutoFit = True\r\n\t\t\t\tlegend2.BackColor = formbody.BackColor\t\t\t\r\n\t\t\t\tchart1.CustomizeLegend += chart_CustomizeLegend\r\n\t\t\t\t#Initialize the chart and its properties\r\n\t\t\t\tchart1.BeginInit()\r\n\t\t\t\tchart1.Size = Size(panelChart.Width,panelChart.Width)\r\n\t\t\t\tchart1.AntiAliasing = AntiAliasingStyles.All\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\ttitleFont = Font(fontFam,10,FontStyle.Bold)\r\n\t\t\t\ttitle = Title()\r\n\t\t\t\ttitle.Text = j.chartname\r\n\t\t\t\ttitle.Alignment = ContentAlignment.TopLeft\r\n\t\t\t\ttitle.Font = titleFont\r\n\t\t\t\tchart1.Titles.Add(title)\r\n\t\t\t\t#Add a button to push on view\r\n\t\t\t\tbt = Button()\r\n\t\t\t\tbt.Tag = \"Push the chart on a view in Revit\"\r\n\t\t\t\tbt.Text = \"Push on a draft view\"\r\n\t\t\t\tbt.Height = 20 * yRatio\r\n\t\t\t\tbt.Width = 140 * yRatio\t\t\t\t\r\n\t\t\t\tpanelChart.Controls.Add(bt)\r\n\t\t\t\tbt.BringToFront()\r\n\t\t\t\tbt.Click += form.imageexport\r\n\t\t\t\t#Add a checkBox to show/hide legend\r\n\t\t\t\tcheckBox1 = CheckBox()\r\n\t\t\t\tcheckBox1.AutoCheck = True\r\n\t\t\t\tcheckBox1.Name = \"checkBox1\"\r\n\t\t\t\tcheckBox1.Text = \"Legend\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox1)\r\n\t\t\t\tcheckBox1.BringToFront()\r\n\t\t\t\tcheckBox1.Checked = True\r\n\t\t\t\tcheckBox1.AutoSize = True\r\n\t\t\t\tcheckBox1.Click += form.chart_showLegend\r\n\t\t\t\t\r\n\t\t\t\t#Add a checkBox to show/hide labels\r\n\t\t\t\tcheckBox2 = CheckBox()\r\n\t\t\t\tcheckBox2.AutoCheck = True\r\n\t\t\t\tcheckBox2.Name = \"checkBox2\"\r\n\t\t\t\tcheckBox2.Text = \"Labels\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox2)\r\n\t\t\t\tcheckBox2.BringToFront()\r\n\t\t\t\tcheckBox2.Checked = True\r\n\t\t\t\tcheckBox2.Font = originalFont\r\n\t\t\t\tcheckBox2.AutoSize = True\r\n\t\t\t\tcheckBox2.Click += form.chart_showLabels\r\n\t\t\t\t\r\n\t\t\t\tpanelChart.Size = Size(panelChart.Width, panelChart.Width + checkBox2.Height + 20)\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Controls.Add(chart1)\r\n\t\t\t\tchart1.Location = Point(0,0)\r\n\t\t\t\tbt.Location = Point(panelChart.Width - bt.Width, panelChart.Width + 15)\r\n\t\t\t\tcheckBox1.Location = Point(panelChart.Width - bt.Width - 80, panelChart.Width + 15)\r\n\t\t\t\tcheckBox2.Location = Point(panelChart.Width - bt.Width - 160, panelChart.Width + 15)\r\n\t\t\t\tformbody.Controls.Add(panelChart)\r\n\t\t\t\t\r\n\t\t\t\ty = panelChart.Bottom + 25 * yRatio\r\n\t\t\t\t\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uilinechart':\r\n\t\t\t\tif isinstance(j.labels,list):\r\n\t\t\t\t\tlabels = j.labels\r\n\t\t\t\telse:\r\n\t\t\t\t\tlabels = [j.labels]\r\n\t\t\t\tinputcolors = j.inputcolors\r\n\t\t\t\tpyList = []\r\n\t\t\t\tif isinstance(j.xseries[0],list) and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.xseries[0],list) == False and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.yseries)\r\n\t\t\t\t\txseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\txseries.append(j.xseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.yseries[0],list) == False and isinstance(j.xseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\tyseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\tyseries.append(j.yseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\telse:\r\n\t\t\t\t\txseries = [j.xseries]\r\n\t\t\t\t\tyseries = [j.yseries]\r\n\t\t\t\t\tnbOfSeries = 1\r\n\t\t\t\tif inputcolors is not None:\r\n\t\t\t\t\tcolorBool = True\r\n\t\t\t\t\tfor color in inputcolors:\r\n\t\t\t\t\t\tpyList.append(Color.FromArgb(color.Red,color.Green,color.Blue))\r\n\t\t\t\t\twfColor = Array[Color](pyList)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcolorBool = False\r\n\t\t\t\t#Set a global Font code\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\t\t#Chart created and Panel to host the chart\r\n\t\t\t\tchart1 = Chart()\r\n\t\t\t\tpanelChart = Panel()\r\n\t\t\t\tpanelChart.Name = \"panelChart\"\r\n\t\t\t\t#Panels colors\r\n\t\t\t\tchart1.BackColor = formbody.BackColor\r\n\t\t\t\tpanelChart.BackColor = Color.Transparent\r\n\t\t\t\t#PanelChart location\r\n\t\t\t\tpanelChart.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\tpanelChart.Location = Point(xlabel,y + 30)\t\t\t\t\r\n\t\t\t\t#Chart colors palette\r\n\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tif colorBool:\r\n\t\t\t\t\tchart1.PaletteCustomColors = wfColor\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tchart1.Series.Clear()\r\n\t\t\t\t#Series created\r\n\t\t\t\tdef createSeries(seriesName,_keys,_values):\r\n\t\t\t\t\tsrs = Series()\r\n\t\t\t\t\tsrs.Name = seriesName\r\n\t\t\t\t\tsrs.ChartType = SeriesChartType.Line\r\n\t\t\t\t\tsrs.ToolTip = \"Percent: #PERCENT\"\r\n\t\t\t\t\tsrs.IsValueShownAsLabel = True\r\n\t\t\t\t\tsrs.Font = originalFont\r\n\t\t\t\t\tsrs.BorderWidth = 4\r\n\t\t\t\t\tfor i,j in zip(_keys,_values):\r\n\t\t\t\t\t\tsrs.Points.AddXY(i,j)\r\n\t\t\t\t\treturn srs\r\n\t\t\t\t#Create series\r\n\t\t\t\tseries = []\r\n\t\t\t\tfor i in range(0,nbOfSeries):\r\n\t\t\t\t\tseries.append(createSeries(labels[i],xseries[i],yseries[i]))\r\n\t\t\t\t#Add series to chart\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tchart1.Series.Add(s)\r\n\t\t\t\t#Refresh the Chart\r\n\t\t\t\tchart1.Invalidate()\r\n\t\t\t\t#Create a ChartArea and add it to the chart\r\n\t\t\t\tchartArea1 = ChartArea()\r\n\t\t\t\tchartArea1.BackColor = formbody.BackColor\r\n\t\t\t\tchartArea1.Name = \"ChartArea1\"\r\n\t\t\t\tchartArea1.AxisX.Title = j.xaxislabel\r\n\t\t\t\tchartArea1.AxisY.Title = j.yaxislabel\r\n\t\t\t\tchart1.ChartAreas.Add(chartArea1)\r\n\t\t\t\t#Create a Legend and add it to the chart\r\n\t\t\t\tlegend1 = Legend()\r\n\t\t\t\tlegend1.BackColor = formbody.BackColor\r\n\t\t\t\tlegend1.Font = originalFont\r\n\t\t\t\tlegend1.Name = \"Legend1\"\r\n\t\t\t\tchart1.Legends.Add(legend1) \r\n\t\t\t\t#Initialize the chart and its properties\r\n\t\t\t\tchart1.BeginInit()\r\n\t\t\t\tchart1.Size = Size(panelChart.Width,panelChart.Width)\r\n\t\t\t\tchart1.AntiAliasing = AntiAliasingStyles.All\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\ttitleFont = Font(fontFam,10,FontStyle.Bold)\r\n\t\t\t\ttitle = Title()\r\n\t\t\t\ttitle.Text = j.chartname\r\n\t\t\t\ttitle.Alignment = ContentAlignment.TopLeft\r\n\t\t\t\ttitle.Font = titleFont\r\n\t\t\t\tchart1.Titles.Add(title)\r\n\t\t\t\t#Add a button to push on view\r\n\t\t\t\tbt = Button()\r\n\t\t\t\tbt.Tag = \"Push the chart on a view in Revit\"\r\n\t\t\t\tbt.Text = \"Push on a draft view\"\r\n\t\t\t\tbt.Height = 20 * yRatio\r\n\t\t\t\tbt.Width = 140 * yRatio\t\t\t\t\r\n\t\t\t\tpanelChart.Controls.Add(bt)\r\n\t\t\t\tbt.BringToFront()\r\n\t\t\t\tbt.Click += form.imageexport\r\n\t\t\t\t#Add a checkBox to show/hide legend\r\n\t\t\t\tcheckBox1 = CheckBox()\r\n\t\t\t\tcheckBox1.AutoCheck = True\r\n\t\t\t\tcheckBox1.Name = \"checkBox1\"\r\n\t\t\t\tcheckBox1.Text = \"Legend\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox1)\r\n\t\t\t\tcheckBox1.BringToFront()\r\n\t\t\t\tcheckBox1.Checked = True\r\n\t\t\t\tcheckBox1.AutoSize = True\r\n\t\t\t\tcheckBox1.Click += form.chart_showLegend\r\n\t\t\t\t\r\n\t\t\t\t#Add a checkBox to show/hide labels\r\n\t\t\t\tcheckBox2 = CheckBox()\r\n\t\t\t\tcheckBox2.AutoCheck = True\r\n\t\t\t\tcheckBox2.Name = \"checkBox2\"\r\n\t\t\t\tcheckBox2.Text = \"Labels\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox2)\r\n\t\t\t\tcheckBox2.BringToFront()\r\n\t\t\t\tcheckBox2.Checked = True\r\n\t\t\t\tcheckBox2.Font = originalFont\r\n\t\t\t\tcheckBox2.AutoSize = True\r\n\t\t\t\tcheckBox2.Click += form.chart_showLabels\r\n\t\t\t\t\r\n\t\t\t\tpanelChart.Size = Size(panelChart.Width, panelChart.Width + checkBox2.Height + 20)\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Controls.Add(chart1)\r\n\t\t\t\tchart1.Location = Point(0,0)\r\n\t\t\t\tbt.Location = Point(panelChart.Width - bt.Width, panelChart.Width + 15)\r\n\t\t\t\tcheckBox1.Location = Point(panelChart.Width - bt.Width - 80, panelChart.Width + 15)\r\n\t\t\t\tcheckBox2.Location = Point(panelChart.Width - bt.Width - 160, panelChart.Width + 15)\r\n\t\t\t\tformbody.Controls.Add(panelChart)\r\n\t\t\t\t\r\n\t\t\t\ty = panelChart.Bottom + 25 * yRatio\r\n\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uisplinechart':\r\n\t\t\t\tif isinstance(j.labels,list):\r\n\t\t\t\t\tlabels = j.labels\r\n\t\t\t\telse:\r\n\t\t\t\t\tlabels = [j.labels]\r\n\t\t\t\tinputcolors = j.inputcolors\r\n\t\t\t\tpyList = []\r\n\t\t\t\tif isinstance(j.xseries[0],list) and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.xseries[0],list) == False and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.yseries)\r\n\t\t\t\t\txseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\txseries.append(j.xseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.yseries[0],list) == False and isinstance(j.xseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\tyseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\tyseries.append(j.yseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\telse:\r\n\t\t\t\t\txseries = [j.xseries]\r\n\t\t\t\t\tyseries = [j.yseries]\r\n\t\t\t\t\tnbOfSeries = 1\r\n\t\t\t\tif inputcolors is not None:\r\n\t\t\t\t\tcolorBool = True\r\n\t\t\t\t\tfor color in inputcolors:\r\n\t\t\t\t\t\tpyList.append(Color.FromArgb(color.Red,color.Green,color.Blue))\r\n\t\t\t\t\twfColor = Array[Color](pyList)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcolorBool = False\r\n\t\t\t\t#Set a global Font code\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\t\t#Chart created and Panel to host the chart\r\n\t\t\t\tchart1 = Chart()\r\n\t\t\t\tpanelChart = Panel()\r\n\t\t\t\tpanelChart.Name = \"panelChart\"\r\n\t\t\t\t#Panels colors\r\n\t\t\t\tchart1.BackColor = formbody.BackColor\r\n\t\t\t\tpanelChart.BackColor = Color.Transparent\r\n\t\t\t\t#PanelChart location\r\n\t\t\t\tpanelChart.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\tpanelChart.Location = Point(xlabel,y + 30)\t\t\t\t\r\n\t\t\t\t#Chart colors palette\r\n\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tif colorBool:\r\n\t\t\t\t\tchart1.PaletteCustomColors = wfColor\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tchart1.Series.Clear()\r\n\t\t\t\t#Series created\r\n\t\t\t\tdef createSeries(seriesName,_keys,_values):\r\n\t\t\t\t\tsrs = Series()\r\n\t\t\t\t\tsrs.Name = seriesName\r\n\t\t\t\t\tsrs.ChartType = SeriesChartType.Spline\r\n\t\t\t\t\tsrs.ToolTip = \"Percent: #PERCENT\"\r\n\t\t\t\t\tsrs.IsValueShownAsLabel = True\r\n\t\t\t\t\tsrs.Font = originalFont\r\n\t\t\t\t\tsrs.BorderWidth = 4\r\n\t\t\t\t\tfor i,j in zip(_keys,_values):\r\n\t\t\t\t\t\tsrs.Points.AddXY(i,j)\r\n\t\t\t\t\treturn srs\r\n\t\t\t\t#Create series\r\n\t\t\t\tseries = []\r\n\t\t\t\tfor i in range(0,nbOfSeries):\r\n\t\t\t\t\tseries.append(createSeries(labels[i],xseries[i],yseries[i]))\r\n\t\t\t\t#Add series to chart\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tchart1.Series.Add(s)\r\n\t\t\t\t#Refresh the Chart\r\n\t\t\t\tchart1.Invalidate()\r\n\t\t\t\t#Create a ChartArea and add it to the chart\r\n\t\t\t\tchartArea1 = ChartArea()\r\n\t\t\t\tchartArea1.BackColor = formbody.BackColor\r\n\t\t\t\tchartArea1.Name = \"ChartArea1\"\r\n\t\t\t\tchartArea1.AxisX.Title = j.xaxislabel\r\n\t\t\t\tchartArea1.AxisY.Title = j.yaxislabel\r\n\t\t\t\tchart1.ChartAreas.Add(chartArea1)\r\n\t\t\t\t#Create a Legend and add it to the chart\r\n\t\t\t\tlegend1 = Legend()\r\n\t\t\t\tlegend1.BackColor = formbody.BackColor\r\n\t\t\t\tlegend1.Font = originalFont\r\n\t\t\t\tlegend1.Name = \"Legend1\"\r\n\t\t\t\tchart1.Legends.Add(legend1) \r\n\t\t\t\t#Initialize the chart and its properties\r\n\t\t\t\tchart1.BeginInit()\r\n\t\t\t\tchart1.Size = Size(panelChart.Width,panelChart.Width)\r\n\t\t\t\tchart1.AntiAliasing = AntiAliasingStyles.All\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\ttitleFont = Font(fontFam,10,FontStyle.Bold)\r\n\t\t\t\ttitle = Title()\r\n\t\t\t\ttitle.Text = j.chartname\r\n\t\t\t\ttitle.Alignment = ContentAlignment.TopLeft\r\n\t\t\t\ttitle.Font = titleFont\r\n\t\t\t\tchart1.Titles.Add(title)\r\n\t\t\t\t#Add a button to push on view\r\n\t\t\t\tbt = Button()\r\n\t\t\t\tbt.Tag = \"Push the chart on a view in Revit\"\r\n\t\t\t\tbt.Text = \"Push on a draft view\"\r\n\t\t\t\tbt.Height = 20 * yRatio\r\n\t\t\t\tbt.Width = 140 * yRatio\t\t\t\r\n\t\t\t\tpanelChart.Controls.Add(bt)\r\n\t\t\t\tbt.BringToFront()\r\n\t\t\t\tbt.Click += form.imageexport\r\n\t\t\t\t#Add a checkBox to show/hide legend\r\n\t\t\t\tcheckBox1 = CheckBox()\r\n\t\t\t\tcheckBox1.AutoCheck = True\r\n\t\t\t\tcheckBox1.Name = \"checkBox1\"\r\n\t\t\t\tcheckBox1.Text = \"Legend\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox1)\r\n\t\t\t\tcheckBox1.BringToFront()\r\n\t\t\t\tcheckBox1.Checked = True\r\n\t\t\t\tcheckBox1.AutoSize = True\r\n\t\t\t\tcheckBox1.Click += form.chart_showLegend\r\n\t\t\t\t\r\n\t\t\t\t#Add a checkBox to show/hide labels\r\n\t\t\t\tcheckBox2 = CheckBox()\r\n\t\t\t\tcheckBox2.AutoCheck = True\r\n\t\t\t\tcheckBox2.Name = \"checkBox2\"\r\n\t\t\t\tcheckBox2.Text = \"Labels\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox2)\r\n\t\t\t\tcheckBox2.BringToFront()\r\n\t\t\t\tcheckBox2.Checked = True\r\n\t\t\t\tcheckBox2.Font = originalFont\r\n\t\t\t\tcheckBox2.AutoSize = True\r\n\t\t\t\tcheckBox2.Click += form.chart_showLabels\r\n\t\t\t\t\r\n\t\t\t\tpanelChart.Size = Size(panelChart.Width, panelChart.Width + checkBox2.Height + 20)\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Controls.Add(chart1)\r\n\t\t\t\tchart1.Location = Point(0,0)\r\n\t\t\t\tbt.Location = Point(panelChart.Width - bt.Width, panelChart.Width + 15)\r\n\t\t\t\tcheckBox1.Location = Point(panelChart.Width - bt.Width - 80, panelChart.Width + 15)\r\n\t\t\t\tcheckBox2.Location = Point(panelChart.Width - bt.Width - 160, panelChart.Width + 15)\r\n\t\t\t\tformbody.Controls.Add(panelChart)\r\n\t\t\t\t\r\n\t\t\t\ty = panelChart.Bottom + 25 * yRatio\r\n\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uibubblechart':\r\n\t\t\t\tif isinstance(j.labels,list):\r\n\t\t\t\t\tlabels = j.labels\r\n\t\t\t\telse:\r\n\t\t\t\t\tlabels = [j.labels]\r\n\t\t\t\tinputcolors = j.inputcolors\r\n\t\t\t\tpyList = []\r\n\t\t\t\tif isinstance(j.xseries[0],list) and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.xseries[0],list) == False and isinstance(j.yseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.yseries)\r\n\t\t\t\t\txseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\txseries.append(j.xseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\tyseries = j.yseries\r\n\t\t\t\telif isinstance(j.yseries[0],list) == False and isinstance(j.xseries[0],list):\r\n\t\t\t\t\tnbOfSeries = len(j.xseries)\r\n\t\t\t\t\tyseries = []\r\n\t\t\t\t\ti = 1\r\n\t\t\t\t\twhile i <= nbOfSeries:\r\n\t\t\t\t\t\tyseries.append(j.yseries)\r\n\t\t\t\t\t\ti = i + 1\r\n\t\t\t\t\txseries = j.xseries\r\n\t\t\t\telse:\r\n\t\t\t\t\txseries = [j.xseries]\r\n\t\t\t\t\tyseries = [j.yseries]\r\n\t\t\t\t\tnbOfSeries = 1\r\n\t\t\t\tif inputcolors is not None:\r\n\t\t\t\t\tcolorBool = True\r\n\t\t\t\t\tfor color in inputcolors:\r\n\t\t\t\t\t\tpyList.append(Color.FromArgb(color.Red,color.Green,color.Blue))\r\n\t\t\t\t\twfColor = Array[Color](pyList)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcolorBool = False\r\n\t\t\t\t#Set a global Font code\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\toriginalFont = Font(fontFam,8)\r\n\t\t\t\t#Chart created and Panel to host the chart\r\n\t\t\t\tchart1 = Chart()\r\n\t\t\t\tpanelChart = Panel()\r\n\t\t\t\t#panelChart.Padding = Padding(1) To create a black border\r\n\t\t\t\tchart1.BackColor = formbody.BackColor\r\n\t\t\t\tpanelChart.BackColor = Color.Transparent\r\n\t\t\t\t#PanelChart location\r\n\t\t\t\tpanelChart.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\tpanelChart.Location = Point(xlabel,y + 30)\t\t\t\t\r\n\t\t\t\tautoheight = 250 * yRatio\t\t\t\r\n\t\t\t\tpanelChart.Height = autoheight + 73 * yRatio\r\n\t\t\t\tratio = (panelChart.Height)/(panelChart.Width)\r\n\t\t\t\th = float(panelChart.Height)\r\n\t\t\t\tw = float(panelChart.Width)\r\n\t\t\t\tratio = h/w\r\n\t\t\t\tchart_maxsize = formbody.Width - 25*xRatio - xlabel - rightmargin\r\n\t\t\t\tpanelChart.Size = Size(chart_maxsize,chart_maxsize*ratio)\t\t\t\t\r\n\t\t\t\t#Chart colors palette\r\n\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tif colorBool:\r\n\t\t\t\t\tchart1.PaletteCustomColors = wfColor\r\n\t\t\t\telse:\r\n\t\t\t\t\tchart1.Palette =  ChartColorPalette.None\r\n\t\t\t\tchart1.Series.Clear()\r\n\t\t\t\t#Series created\r\n\t\t\t\tdef createSeries(seriesName,_keys,_values):\r\n\t\t\t\t\tsrs = Series()\r\n\t\t\t\t\tsrs.Name = seriesName\r\n\t\t\t\t\tsrs.ChartType = SeriesChartType.Bubble\r\n\t\t\t\t\tsrs.ToolTip = \"Percent: #PERCENT\"\r\n\t\t\t\t\tsrs.Font = originalFont\r\n\t\t\t\t\tfor i,j in zip(_keys,_values):\r\n\t\t\t\t\t\tsrs.Points.AddXY(i,j)\r\n\t\t\t\t\treturn srs\r\n\t\t\t\t#Create series\r\n\t\t\t\tseries = []\r\n\t\t\t\tfor i in range(0,nbOfSeries):\r\n\t\t\t\t\tseries.append(createSeries(labels[i],xseries[i],yseries[i]))\r\n\t\t\t\t#Add series to chart\r\n\t\t\t\tfor s in series:\r\n\t\t\t\t\tchart1.Series.Add(s)\r\n\t\t\t\t#Refresh the Chart\r\n\t\t\t\tchart1.Invalidate()\r\n\t\t\t\t#Create a ChartArea and add it to the chart\r\n\t\t\t\tchartArea1 = ChartArea()\r\n\t\t\t\tchartArea1.BackColor = formbody.BackColor\r\n\t\t\t\tchartArea1.Name = \"ChartArea1\"\r\n\t\t\t\tchartArea1.AxisX.Title = j.xaxislabel\r\n\t\t\t\tchartArea1.AxisY.Title = j.yaxislabel\r\n\t\t\t\tchart1.ChartAreas.Add(chartArea1)\r\n\t\t\t\t#Create a Legend and add it to the chart\r\n\t\t\t\tlegend1 = Legend()\r\n\t\t\t\tlegend1.BackColor = formbody.BackColor\r\n\t\t\t\tlegend1.Font = originalFont\r\n\t\t\t\tlegend1.Name = \"Legend1\"\r\n\t\t\t\tchart1.Legends.Add(legend1) \r\n\t\t\t\t#Initialize the chart and its properties\r\n\t\t\t\tchart1.BeginInit()\r\n\t\t\t\tchart1.Dock = DockStyle.Fill\r\n\t\t\t\tchart1.AntiAliasing = AntiAliasingStyles.All\r\n\t\t\t\tfontFam = FontFamily(\"Segoe UI Symbol\")\r\n\t\t\t\ttitleFont = Font(fontFam,10,FontStyle.Bold)\r\n\t\t\t\ttitle = Title()\r\n\t\t\t\ttitle.Text = j.chartname\r\n\t\t\t\ttitle.Alignment = ContentAlignment.TopLeft\r\n\t\t\t\ttitle.Font = titleFont\r\n\t\t\t\tchart1.Titles.Add(title)\r\n\t\t\t\t#Add a button to push on view\r\n\t\t\t\tbt = Button()\r\n\t\t\t\tbt.Tag = \"Push the chart on a view in Revit\"\r\n\t\t\t\tbt.Text = \"Push on a draft view\"\r\n\t\t\t\tbt.Height = 20 * yRatio\r\n\t\t\t\tbt.Width = 140 * yRatio\t\t\t\r\n\t\t\t\tpanelChart.Controls.Add(bt)\r\n\t\t\t\tbt.BringToFront()\r\n\t\t\t\tbt.Click += form.imageexport\r\n\t\t\t\t#Add a checkBox to show/hide legend\r\n\t\t\t\tcheckBox1 = CheckBox()\r\n\t\t\t\tcheckBox1.AutoCheck = True\r\n\t\t\t\tcheckBox1.Name = \"checkBox1\"\r\n\t\t\t\tcheckBox1.Text = \"Show/Hide legend\"\r\n\t\t\t\tpanelChart.Controls.Add(checkBox1)\r\n\t\t\t\tcheckBox1.BringToFront()\r\n\t\t\t\tcheckBox1.Checked = True\r\n\t\t\t\tcheckBox1.Click += form.chart_showLegend\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Size = Size(panelChart.Width, panelChart.Width + checkBox2.Height + 20)\r\n\t\t\t\t#Add chart to panel\r\n\t\t\t\tpanelChart.Controls.Add(chart1)\r\n\t\t\t\tchart1.Location = Point(0,0)\r\n\t\t\t\tbt.Location = Point(panelChart.Width - bt.Width, panelChart.Width + 15)\r\n\t\t\t\tcheckBox1.Location = Point(panelChart.Width - bt.Width - 80, panelChart.Width + 15)\r\n\t\t\t\tcheckBox2.Location = Point(panelChart.Width - bt.Width - 160, panelChart.Width + 15)\r\n\t\t\t\tformbody.Controls.Add(panelChart)\r\n\t\t\t\t\r\n\t\t\t\ty = panelChart.Bottom + 25 * yRatio\r\n\r\n\t\t\telif j.__class__.__name__ == 'uitreeview':\r\n\t\t\t\ttv = TreeView()\r\n\t\t\t\ttv.MouseDown += form.treeNodeMouseDown\r\n\t\t\t\ttv.CheckBoxes = True\r\n\t\t\t\ttitles = j._hastitles\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\ttv.Width =formbody.Width - 25*xRatio - xinput\r\n\t\t\t\t\ttv.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\ttv.Width = formbody.Width - 25*xRatio- xlabel\r\n\t\t\t\t\ttv.Location = Point(xlabel,y)\r\n\t\t\t\ttv.Height = j._height\r\n\t\t\t\tdef treeIterationTitle(control, input):\r\n\t\t\t\t\tif isinstance(input,list):\r\n\t\t\t\t\t\ttry:\r\n\t\t\t\t\t\t\tcurrentNode = TreeNode(remove_accents(input[0].ToString()))\r\n\t\t\t\t\t\t\tcurrentNode.Tag = \"\"\r\n\t\t\t\t\t\t\tinput.pop(0)\r\n\t\t\t\t\t\texcept:\r\n\t\t\t\t\t\t\tcurrentNode = TreeNode(control.Text +\".\"+ str(len(control.Nodes)+1))\r\n\t\t\t\t\t\t\tcurrentNode.Tag = \"\"\r\n\t\t\t\t\t\tcontrol.Nodes.Add(currentNode)\r\n\t\t\t\t\t\tfor i in input:\r\n\t\t\t\t\t\t\ttreeIterationTitle(currentNode, i)\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\titem = TreeNode(remove_accents(input.ToString()))\r\n\t\t\t\t\t\titem.Tag = input\r\n\t\t\t\t\t\tcontrol.Nodes.Add(item) \r\n\t\t\t\tdef treeIteration(control, input):\r\n\t\t\t\t\tif isinstance(input,list):\r\n\t\t\t\t\t\tcurrentNode = TreeNode(control.Text +\".\"+ str(len(control.Nodes)+1))\r\n\t\t\t\t\t\tcurrentNode.Tag = input\r\n\t\t\t\t\t\tcontrol.Nodes.Add(currentNode)\r\n\t\t\t\t\t\tfor i in input:\r\n\t\t\t\t\t\t\ttreeIteration(currentNode, i)\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\titem = TreeNode(remove_accents(input.ToString()))\r\n\t\t\t\t\t\titem.Tag = input\r\n\t\t\t\t\t\tcontrol.Nodes.Add(item)\r\n\t\t\t\tcurrentNode = TreeNode(\"List1\")\r\n\t\t\t\tcurrentNode.Expand()\t\t\t\t\r\n\t\t\t\tif titles:\r\n\t\t\t\t\ttv.Nodes.Add(currentNode)\t\t\t\t\t\t\t\t\r\n\t\t\t\t\tfor dl in j.datalist:\r\n\t\t\t\t\t\ttreeIterationTitle(currentNode,dl)\t\r\n\t\t\t\telse:\r\n\t\t\t\t\ttv.Nodes.Add(currentNode)\t\t\t\t\t\t\t\t\r\n\t\t\t\t\tfor dl in j.datalist:\r\n\t\t\t\t\t\ttreeIteration(currentNode,dl)\r\n\t\t\t\ttv.AfterCheck += form.CheckChildren\t\t\t\t\t\t\r\n\t\t\t\tformbody.Controls.Add(tv)\r\n\t\t\t\tform.output.append(tv)\r\n\t\t\t\ty = tv.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'listview':\r\n\t\t\t\tlvp = Panel()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tlvp.Location = Point(xinput,y)\r\n\t\t\t\t\tlvp.Width = formbody.Width - 25*xRatio- xinput\t\t\t\t\r\n\t\t\t\telif j.inputname == \"\" and j.element_count != 0:\r\n\t\t\t\t\tlvp.Location = Point(xlabel,y+35*yRatio)\r\n\t\t\t\t\tlvp.Width = formbody.Width - 25*xRatio- xlabel\r\n\t\t\t\telse : \r\n\t\t\t\t\tlvp.Location = Point(xlabel,y)\r\n\t\t\t\t\tlvp.Width = formbody.Width - 25*xRatio - xlabel\t\t\t\t\r\n\t\t\t\tlvp.Height = j.height * yRatio + 25 * yRatio\r\n\t\t\t\t#Creating the listview box\r\n\t\t\t\tlv = mylistview()\r\n\t\t\t\tlv.Scrollable = True\r\n\t\t\t\tdummyheader = ColumnHeader()\r\n\t\t\t\tdummyheader.Text = \"\"\r\n\t\t\t\tdummyheader.Name = \"\"\r\n\t\t\t\tdummyheader.Width = -2 * xRatio\r\n\t\t\t\tlv.HeaderStyle = ColumnHeaderStyle.None\r\n\t\t\t\tlv.Columns.Add(dummyheader)\r\n\t\t\t\tlv.Values = j\r\n\t\t\t\tif not j.display_mode:\r\n\t\t\t\t\tlv.CheckBoxes = True\r\n\t\t\t\tlv.View = vi.Details\r\n\t\t\t\tlvItems =  [i for i in j.keys() if not (i == 'inputname' or i == 'height' or i == 'highlight' or i == 'display_mode' or i == 'element_count' or i == 'default_values' or i == 'sorted' or i == 'showId')]\r\n\t\t\t\tif j.sorted :\r\n\t\t\t\t\tlvItems = sorted(lvItems,key = remove_accents)\r\n\t\t\t\telse:\r\n\t\t\t\t\tpass\r\n\t\t\t\t[lv.Items.Add(i) for i in lvItems]\r\n\t\t\t\tlv.Location = Point(0,0)\r\n\t\t\t\tif j.inputname != \"\" and j.element_count != 0:\r\n\t\t\t\t\tlv.Width = formbody.Width - 25*xRatio- xinput\r\n\t\t\t\telif j.inputname != \"\" and j.element_count == 0:\r\n\t\t\t\t\tlv.Width = formbody.Width - 25*xRatio - xinput\r\n\t\t\t\telse:\r\n\t\t\t\t\tlv.Width =formbody.Width - 25*xRatio- xlabel\r\n\t\t\t\tlv.Height = j.height * yRatio\r\n\t\t\t\tlv.Scrollable = True\r\n\t\t\t\tlv.ItemCheck += form.updateallnone\r\n\t\t\t\tfor i in j.default_values:\r\n\t\t\t\t\tdefInd = lvItems.index([x for x in j.keys() if not (x == 'inputname' or x == 'height' or x == 'highlight' or x == 'display_mode' or x == 'element_count' or x == 'default_values' or x == 'sorted' or x == 'showId')][i])\r\n\t\t\t\t\tlv.Items[defInd].Checked = True\r\n\t\t\t\t#Click listview items to hilight and center in appropriate view\r\n\t\t\t\tif j.highlight :\r\n\t\t\t\t\tlv.MouseDown += form.setviewforelement\r\n\t\t\t\t\tlv.MouseUp += form.zoomcenter\r\n\t\t\t\t\titems = list(lv.Items)\r\n\t\t\t\t\tlv.FullRowSelect = True\r\n\t\t\t\t\tdel items[::2]\r\n\t\t\t\t\tfor item in items:\r\n\t\t\t\t\t\titem.BackColor = Color.FromArgb(230,243,255)\r\n\t\t\t\t#Creating select all and select none radiobuttons\r\n\t\t\t\tif not j.display_mode:\r\n\t\t\t\t\trball = RadioButton()\r\n\t\t\t\t\trball.Location = Point(0,(j.height+5)*yRatio)\r\n\t\t\t\t\trball.Width = 100 * xRatio\r\n\t\t\t\t\trball.Height = 20 * yRatio\r\n\t\t\t\t\trball.Font = SystemFonts.DefaultFont\r\n\t\t\t\t\trball.Text = \"Select all\"\r\n\t\t\t\t\trball.Click += form.selectall\r\n\t\t\t\t\trbnone = RadioButton()\r\n\t\t\t\t\trbnone.Location = Point(105 * xRatio,(j.height+5)*yRatio)\r\n\t\t\t\t\trbnone.Width = 100 * xRatio\r\n\t\t\t\t\trbnone.Height = 20 * yRatio\r\n\t\t\t\t\trbnone.Font = SystemFonts.DefaultFont\r\n\t\t\t\t\trbnone.Text = \"Select none\"\t\t\t\r\n\t\t\t\t\trbnone.Click += form.selectnone\t\t\t\r\n\t\t\t\t#Adding controls to panel\r\n\t\t\t\tlvp.Controls.Add(lv)\r\n\t\t\t\tif not j.display_mode:\r\n\t\t\t\t\tlvp.Controls.Add(rball)\r\n\t\t\t\t\tlvp.Controls.Add(rbnone)\r\n\t\t\t\tformbody.Controls.Add(lvp)\r\n\t\t\t\tif not j.display_mode:\r\n\t\t\t\t\tform.output.append(lv)\r\n\t\t\t\ty = lvp.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uitext':\r\n\t\t\t\ttb = myTextBox()\r\n\t\t\t\ttb.Text = j.defaultvalue\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\ttb.Width = formbody.Width - 25*xRatio - xinput\r\n\t\t\t\t\ttb.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\ttb.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\t\ttb.Location = Point(xlabel,y)\r\n\t\t\t\tif j._isnum:\r\n\t\t\t\t\ttb._isNum = True\r\n\t\t\t\t\ttb.KeyPress += form.numsOnly\r\n\t\t\t\tformbody.Controls.Add(tb)\r\n\t\t\t\tformbody.Controls.Add(label)\r\n\t\t\t\tform.output.append(tb)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uimultilinetext':\r\n\t\t\t\ttb = myTextBox()\r\n\t\t\t\ttb.Text = j.defaultvalue\r\n\t\t\t\ttb.Multiline  = True\r\n\t\t\t\ttb.Height = j._height * yRatio\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\ttb.Width = formbody.Width - 25*xRatio - xinput\r\n\t\t\t\t\ttb.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\ttb.Width = formbody.Width - 25*xRatio- xlabel\r\n\t\t\t\t\ttb.Location = Point(xlabel,y)\r\n\t\t\t\tif j._isnum:\r\n\t\t\t\t\ttb._isNum = True\r\n\t\t\t\t\ttb.KeyPress += form.numsOnly\r\n\t\t\t\tformbody.Controls.Add(tb)\r\n\t\t\t\tformbody.Controls.Add(label)\r\n\t\t\t\tform.output.append(tb)\r\n\t\t\t\ty = tb.Bottom + 25 * yRatio\t\t\t\t\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'tableview':\r\n\t\t\t\t#Creating grouping panel\r\n\t\t\t\ttvp = Panel()\r\n\t\t\t\ttvp.Location = Point(xlabel,y)\r\n\t\t\t\ttvp.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\tif (50 + len(j.dataList) * 15) * yRatio > 800 * yRatio:\r\n\t\t\t\t\tautoheight = 800 * yRatio\r\n\t\t\t\telse:\r\n\t\t\t\t\tautoheight = (50 + len(j.dataList) * 15 ) * yRatio\t\t\t\r\n\t\t\t\ttvp.Height = autoheight + 73 * yRatio\r\n\t\t\t\t#Creating title\r\n\t\t\t\ttitlep = Label()\r\n\t\t\t\ttitlep.Text = j._tabletitle\r\n\t\t\t\ttitlep.Width = formbody.Width - 25*xRatio - xlabel\r\n\t\t\t\ttitlep.BackColor = Color.FromArgb(153,180,209)\r\n\t\t\t\ttitlep.Font = Font(\"Arial\", 11, FontStyle.Bold)\r\n\t\t\t\ttitlep.TextAlign = ContentAlignment.MiddleLeft\r\n\t\t\t\ttitlep.BorderStyle = BorderStyle.FixedSingle\r\n\t\t\t\ttitlep.Location = Point(0,0)\r\n\t\t\t\ttvp.Controls.Add(titlep)\r\n\t\t\t\t#Creating data structure\r\n\t\t\t\tdg = myDataGridView()\r\n\t\t\t\t#dg.SelectionMode = DataGridViewSelectionMode.CellSelect\r\n\t\t\t\tdg.EnableHeadersVisualStyles = False\t\t\t\t\r\n\t\t\t\tdt = DataTable()\r\n\t\t\t\tdl = j.dataList\r\n\t\t\t\tfor i in range(len(dl[0])):\r\n\t\t\t\t\tif j._hasTitle:\r\n\t\t\t\t\t\tdt.Columns.Add(remove_accents(dl[0][i].ToString()))\r\n\t\t\t\t\t\trngstart = 1\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\tdt.Columns.Add(\"Column \" + str(i))\r\n\t\t\t\t\t\trngstart = 0\t\t\t\t\t\t\r\n\t\t\t\tfor rindex in range(rngstart,len(dl)):\r\n\t\t\t\t\trow = dt.NewRow()\r\n\t\t\t\t\tfor i in range(len(dl[rindex])):\r\n\t\t\t\t\t\trow[i] = dl[rindex][i]\r\n\t\t\t\t\tdt.Rows.Add(row)\t\t\t\t\t\t\r\n\t\t\t\tdg.Tag = j._hasTitle\t\t\t\t\r\n\t\t\t\tdg.DataSource = dt\r\n\t\t\t\tdg.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithAutoHeaderText\r\n\t\t\t\tdg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells\r\n\t\t\t\tdg.Width = formbody.Width - 25*xRatio- xlabel\r\n\t\t\t\tdg.Location = Point(0,23 * yRatio)\r\n\t\t\t\tdg.Height = autoheight\r\n\t\t\t\t#Creatin Excel like drag copy functionalities\r\n\t\t\t\tdg.CellMouseDown += form.startCell\r\n\t\t\t\tdg.CellMouseUp += form.endCell\r\n\t\t\t\t#dg.MouseDown += form.startRowDrag\r\n\t\t\t\t#dg.MouseUp =\t\t\t\r\n\t\t\t\ttvp.Controls.Add(dg)\t\t\t\r\n\t\t\t\ty = tvp.Bottom + 15 * yRatio\r\n\t\t\t\t#Adding export to excel button\r\n\t\t\t\tex = Button()\r\n\t\t\t\tex.Tag = [j._hasTitle , j._openExcel , j._showinfo , j._fileInfo]\r\n\t\t\t\ttry:\r\n\t\t\t\t\texpImage = getImageByName(\"exp.png\")[0]\r\n\t\t\t\t\tex.BackgroundImage = expImage\r\n\t\t\t\texcept:\r\n\t\t\t\t\tex.Text = \"Export\"\t\t\t\t\t\r\n\t\t\t\tex.Width = 60 * xRatio\r\n\t\t\t\tex.Height = 30 * yRatio\r\n\t\t\t\tex.Location = Point(formbody.Width - 25*xRatio - 125 * xRatio ,dg.Bottom + 15 * yRatio)\t\t\t\t\t\r\n\t\t\t\ttvp.Controls.Add(ex)\r\n\t\t\t\tex.Click += form.exportToExcel\r\n\t\t\t\t#Adding filepath export textbox\r\n\t\t\t\tfilepathtb = TextBox()\r\n\t\t\t\tfilepathtb.Text = \"ExportFileName\"\r\n\t\t\t\tfilepathtb.Location = Point(0 ,dg.Bottom + 20 * yRatio)\r\n\t\t\t\tfilepathtb.Width = formbody.Width - 25*xRatio - xlabel - 125 * xRatio\r\n\t\t\t\ttvp.Controls.Add(filepathtb)\r\n\t\t\t\t#Adding copy to clipboard button\r\n\t\t\t\tcb = Button()\r\n\t\t\t\t#Adding panel to form\r\n\t\t\t\tformbody.Controls.Add(tvp)\r\n\t\t\t\tform.output.append(dg)\r\n\t\t\t\ty = tvp.Bottom + 25 * yRatio\r\n\t\t\t\tform.topmost()\r\n\t\t\telif j.__class__.__name__ == 'uitextnote':\r\n\t\t\t\tgb = GroupBox()\r\n\t\t\t\tgb.Text = j.title\r\n\t\t\t\tgb.Parent = form\r\n\t\t\t\tgb.SendToBack()\r\n\t\t\t\tgb.BackColor = Color.Transparent\r\n\t\t\t\tgb.Location = Point(xlabel, y)\r\n\t\t\t\ttn = Label()\r\n\t\t\t\ttn.Location = Point(xlabel,18 * yRatio)\r\n\t\t\t\ttn.AutoSize = True\r\n\t\t\t\ttn.MaximumSize = Size(formbody.Width - 25*xRatio - 50 * xRatio,0)\r\n\t\t\t\ttn.Text = j.textnote\r\n\t\t\t\ttn.BringToFront()\r\n\t\t\t\tgb.Controls.Add(tn)\r\n\t\t\t\tgb.Size = Size(formbody.Width - 25*xRatio - 25 * xRatio, tn.Bottom-tn.Top+25 * yRatio)  \r\n\t\t\t\ty = gb.Bottom + 25 * xRatio\r\n\t\t\t\tformbody.Controls.Add(gb)\r\n\t\t\telif j.__class__.__name__ == 'uibool':\r\n\t\t\t\tyn = CheckBox()\r\n\t\t\t\tyn.Width = formbody.Width - 25*xRatio - xinput  + 10 * xRatio\r\n\t\t\t\tyn.Location = Point(xinput,y)\r\n\t\t\t\tyn.Text = j.booltext\r\n\t\t\t\tg = yn.CreateGraphics()\r\n\t\t\t\tsizetext = g.MeasureString(yn.Text,yn.Font, formbody.Width - 25*xRatio - xinput  -20 * xRatio)\r\n\t\t\t\theighttext = sizetext.Height\r\n\t\t\t\tyn.Height = heighttext + 15 * yRatio\r\n\t\t\t\tyn.Checked = j.defaultvalue\r\n\t\t\t\tformbody.Controls.Add(yn)\r\n\t\t\t\tform.output.append(yn)\r\n\t\t\t\ty = yn.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiradio':\r\n\t\t\t\tyrb = 20 * yRatio\r\n\t\t\t\trbs = []\r\n\t\t\t\trbgroup = mygroupbox()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\trbgroup.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\trbgroup.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\trbgroup.Width = formbody.Width - 25*xRatio - xlabel \r\n\t\t\t\t\trbgroup.Location = Point(xlabel,y)\t\t\t\t\t\r\n\t\t\t\trbgroup.Tag = j\r\n\t\t\t\trbcounter = 0\r\n\t\t\t\tfor key in j.keys():\r\n\t\t\t\t\tif key != 'inputname' and key != 'defaultvalue':\r\n\t\t\t\t\t\trb = RadioButton()\r\n\t\t\t\t\t\trb.Text = key \r\n\t\t\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\t\t\trb.Width = formbody.Width - 25*xRatio - xinput  - 35 * xRatio\r\n\t\t\t\t\t\telse:\r\n\t\t\t\t\t\t\trb.Width = formbody.Width - 25*xRatio - xlabel  - 35 * xRatio\r\n\t\t\t\t\t\trb.Location = Point(20 * xRatio,yrb)\r\n\t\t\t\t\t\tif rbcounter == j.defaultvalue:\r\n\t\t\t\t\t\t\trb.Checked = True\r\n\t\t\t\t\t\trbgroup.Controls.Add(rb)\r\n\t\t\t\t\t\tg = rb.CreateGraphics()\r\n\t\t\t\t\t\tsizetext = g.MeasureString(key,rb.Font, formbody.Width - 25*xRatio - xinput - 90*xRatio)\r\n\t\t\t\t\t\theighttext = sizetext.Height\r\n\t\t\t\t\t\trb.Height = heighttext + 15 * yRatio\r\n\t\t\t\t\t\tybot = rb.Bottom\r\n\t\t\t\t\t\tyrb += heighttext + 12 * yRatio\r\n\t\t\t\t\t\trbcounter += 1\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\tpass\r\n\t\t\t\trbgroup.Height = ybot + 20 * yRatio\r\n\t\t\t\t[rbgroup.Controls.Add(rb) for rb in rbs]\r\n\t\t\t\tformbody.Controls.Add(rbgroup)\r\n\t\t\t\tform.output.append(rbgroup)\r\n\t\t\t\ty = rbgroup.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__  == 'uifilepath':\r\n\t\t\t\tfp = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tfp.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tfp.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tfp.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tfp.Location = Point(xlabel,y)\t\t\t\t\t\r\n\t\t\t\tfp.Tag = j.defaultvalue\r\n\t\t\t\tif not j.defaultvalue == \"FilePath\":\r\n\t\t\t\t\tfp.Tag = j.defaultvalue\r\n\t\t\t\t\tfp.MouseHover += form.showtooltip\t\r\n\t\t\t\tfp.Text = j.buttontext\r\n\t\t\t\tfp.Height = 20 * yRatio\t\t\t\t\r\n\t\t\t\tformbody.Controls.Add(fp)\r\n\t\t\t\tfp.Click += form.openfile\r\n\t\t\t\tform.output.append(fp)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uidirectorypath':\r\n\t\t\t\tdp = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tdp.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tdp.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tdp.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tdp.Location = Point(xlabel,y)\t\t\t\t\r\n\t\t\t\tdp.Tag = j.defaultvalue\r\n\t\t\t\tdp.Text = j.buttontext\r\n\t\t\t\tif not j.defaultvalue == \"DirectoryPath\":\r\n\t\t\t\t\tdp.Tag = j.defaultvalue\r\n\t\t\t\t\tdp.MouseHover += form.showtooltip\r\n\t\t\t\tdp.Text = j.buttontext\t\r\n\t\t\t\tdp.Height = 20 * yRatio\t\t\t\t\r\n\t\t\t\tformbody.Controls.Add(dp)\r\n\t\t\t\tdp.Click += form.opendirectory\r\n\t\t\t\tform.output.append(dp)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectelements':\r\n\t\t\t\tse = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tse.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xlabel\t\t\r\n\t\t\t\t\tse.Location = Point(xlabel,y)\r\n\t\t\t\tse.Text = j.buttontext\r\n\t\t\t\tse.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(se)\r\n\t\t\t\tif j.multi == False:\r\n\t\t\t\t\tse.Click += form.pickobjects\r\n\t\t\t\telse:\r\n\t\t\t\t\tse.Click  += form.pickobject\r\n\t\t\t\tform.output.append(se)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectautocadelements':\r\n\t\t\t\tse = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tse.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tse.Location = Point(xlabel,y)\r\n\t\t\t\tse.Text = j.buttontext\r\n\t\t\t\tse.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(se)\r\n\t\t\t\tif j.multi == False:\r\n\t\t\t\t\tse.Click += form.pickautocadobjects\r\n\t\t\t\telse:\r\n\t\t\t\t\tse.Click += form.pickautocadobject\t\t\t\t\t\t\t\t\r\n\t\t\t\tform.output.append(se)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uiselectOrderedelements':\r\n\t\t\t\tse = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tse.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tse.Location = Point(xlabel,y)\r\n\t\t\t\tse.Text = j.buttontext\r\n\t\t\t\tse.Height = 20 * yRatio\t\t\t\t\r\n\t\t\t\tformbody.Controls.Add(se)\r\n\t\t\t\tse.Click  += form.pickobjectsordered\r\n\t\t\t\tform.output.append(se)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectlinkedelements':\r\n\t\t\t\tse = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tse.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tse.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tse.Location = Point(xlabel,y)\r\n\t\t\t\tse.Text = j.buttontext\r\n\t\t\t\tse.Height = 20 * yRatio\t\t\t\t\r\n\t\t\t\tformbody.Controls.Add(se)\r\n\t\t\t\tif j.multi == False:\r\n\t\t\t\t\tse.Click += form.picklinkedobjects\r\n\t\t\t\telse:\r\n\t\t\t\t\tse.Click  += form.picklinkedobject\r\n\t\t\t\tform.output.append(se)\r\n\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectlinkedelementsofcat':\r\n\t\t\t\tsec = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tsec.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tsec.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tsec.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tsec.Location = Point(xlabel,y)\r\n\t\t\t\tsec.Text = j.buttontext\r\n\t\t\t\tsec.Tag = j.category\r\n\t\t\t\tsec.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(sec)\r\n\t\t\t\tif j.multi == False:\r\n\t\t\t\t\tsec.Click += form.picklinkedobjectsofcat\r\n\t\t\t\telse:\r\n\t\t\t\t\tsec.Click += form.picklinkedobjectofcat\r\n\t\t\t\tform.output.append(sec)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectelementsofcat':\r\n\t\t\t\tsec = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tsec.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tsec.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tsec.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tsec.Location = Point(xlabel,y)\r\n\t\t\t\tsec.Text = j.buttontext\r\n\t\t\t\tsec.Tag = j.category\r\n\t\t\t\tsec.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(sec)\r\n\t\t\t\tif j.multi == False:\r\n\t\t\t\t\tsec.Click += form.pickobjectsofcat\r\n\t\t\t\telse:\r\n\t\t\t\t\tsec.Click += form.pickobjectofcat\r\n\t\t\t\tform.output.append(sec)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectOrderedelementsofcat':\r\n\t\t\t\tsec = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tsec.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tsec.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tsec.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tsec.Location = Point(xlabel,y)\r\n\t\t\t\tsec.Text = j.buttontext\r\n\t\t\t\tsec.Tag = j.category\r\n\t\t\t\tsec.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(sec)\r\n\t\t\t\tsec.Click += form.pickobjectsofcatordered\r\n\t\t\t\tform.output.append(sec)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectfaces':\r\n\t\t\t\tsf = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tsf.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tsf.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tsf.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tsf.Location = Point(xlabel,y)\r\n\t\t\t\tsf.Text = j.buttontext\r\n\t\t\t\tsf.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(sf)\r\n\t\t\t\tsf.Click += form.pickfaces\r\n\t\t\t\tform.output.append(sf)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectpointsonface':\r\n\t\t\t\tspf = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tspf.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tspf.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tspf.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tspf.Location = Point(xlabel,y)\r\n\t\t\t\tspf.Text = j.buttontext\r\n\t\t\t\tspf.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(spf)\r\n\t\t\t\tspf.Click += form.pickpointsonface\r\n\t\t\t\tform.output.append(spf)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiselectedges':\r\n\t\t\t\tsed = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tsed.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tsed.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tsed.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tsed.Location = Point(xlabel,y)\r\n\t\t\t\tsed.Text = j.buttontext\r\n\t\t\t\tsed.Height = 20 * yRatio\r\n\t\t\t\tformbody.Controls.Add(sed)\r\n\t\t\t\tsed.Click += form.pickedges\r\n\t\t\t\tform.output.append(sed)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\t\t\r\n\t\t\telif j.__class__.__name__ == 'uislider':\r\n\t\t\t\tgb = Panel()\r\n\t\t\t\tif j.defaultvalue == '':\r\n\t\t\t\t\tdefval = j.minimum\r\n\t\t\t\telse:\r\n\t\t\t\t\tdefval = j.defaultvalue\r\n\t\t\t\tsl = mytrackbar(j.minimum,j.step)\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tgb.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tgb.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tgb.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tgb.Location = Point(xlabel,y)\r\n\t\t\t\tgb.Height = 40 * yRatio\r\n\t\t\t\tsl.Minimum = 0\r\n\t\t\t\tsl.Maximum = (j.maximum-j.minimum)/j.step\r\n\t\t\t\tsl.Value = (defval - j.minimum) / j.step\r\n\t\t\t\tsl.TickFrequency = (j.maximum-j.minimum)/j.step/10\r\n\t\t\t\tsl.Location = Point(40 * xRatio,0)\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tsl.Width = formbody.Width - 25*xRatio - xinput  - 35 * xRatio\r\n\t\t\t\telse:\r\n\t\t\t\t\tsl.Width = formbody.Width - 25*xRatio - xlabel  - 35 * xRatio\r\n\t\t\t\tgb.Controls.Add(sl)\r\n\t\t\t\tform.output.append(sl)\r\n\t\t\t\tdisplabel = Label()\r\n\t\t\t\tdisplabel.Width = 50 * xRatio\r\n\t\t\t\tdisplabel.Location = Point(0,5 * yRatio)\r\n\t\t\t\tdisplabel.Text = str(defval)\r\n\t\t\t\tdisplabel.Height = 30 * yRatio\r\n\t\t\t\tdisplabel.BringToFront()\r\n\t\t\t\tgb.Controls.Add(displabel)\t\r\n\t\t\t\tformbody.Controls.Add(gb)\t\t\t\r\n\t\t\t\tsl.Scroll += form.scroll\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiimage':\r\n\t\t\t\tpic = Image.FromFile(j.image)\r\n\t\t\t\tim = PictureBox()\r\n\t\t\t\tif j.showborder:\r\n\t\t\t\t\tim.BorderStyle = BorderStyle.Fixed3D\r\n\t\t\t\telse:\r\n\t\t\t\t\tim.BorderStyle = BorderStyle.None\r\n\t\t\t\tratio = (pic.Height)/(pic.Width)\r\n\t\t\t\th = float(pic.Height)\r\n\t\t\t\tw = float(pic.Width)\r\n\t\t\t\tratio = h/w\r\n\t\t\t\timage_maxsize = formbody.Width - 25*xRatio - xlabel \r\n\t\t\t\tim.Size = Size(image_maxsize,image_maxsize*ratio)\r\n\t\t\t\tscaledimage = Bitmap(image_maxsize,image_maxsize*ratio)\r\n\t\t\t\tgr = Graphics.FromImage(scaledimage)\r\n\t\t\t\tgr.DrawImage(pic,0,0,image_maxsize,image_maxsize*ratio)\r\n\t\t\t\tim.Image = pic\r\n\t\t\t\tim.SizeMode = PictureBoxSizeMode.Zoom\r\n\t\t\t\tformbody.Controls.Add(im)\r\n\t\t\t\tim.Location = Point(25 * xRatio,y+25*yRatio)\r\n\t\t\t\ty = im.Bottom + 25 * yRatio\r\n\t\t\r\n\t\t\telif j.__class__.__name__ == 'uicolorpick' and importcolorselection == 0:\r\n\t\t\t\tcp = Button()\r\n\t\t\t\tif j.inputname != \"\":\r\n\t\t\t\t\tcp.Width = formbody.Width - 25*xRatio - xinput \r\n\t\t\t\t\tcp.Location = Point(xinput,y)\r\n\t\t\t\telse:\r\n\t\t\t\t\tcp.Width = formbody.Width - 25*xRatio - xlabel \t\t\r\n\t\t\t\t\tcp.Location = Point(xlabel,y)\r\n\t\t\t\tcp.Text = j.buttontext\r\n\t\t\t\tcp.Height = 30 * yRatio\r\n\t\t\t\tformbody.Controls.Add(cp)\r\n\t\t\t\tcp.Click += form.colorpicker\r\n\t\t\t\tform.output.append(cp)\r\n\t\t\t\ty = label.Bottom + 25 * yRatio\t\r\n\t\t\telif j.__class__.__name__ == 'uicolorpick' and importcolorselection == 1:\r\n\t\t\t\timportcolorselection = 2\r\n\t\t\telif j.__class__.__name__ == 'uigroup':\r\n\t\t\t\tgrouppanel = GroupBox()\r\n\t\t\t\tgrouppanel.Text = j.groupname\r\n\t\t\t\tgrouppanel.Location = Point(xlabel,y)\r\n\t\t\t\tgrouppanel.Width = formbody.Width - 65 * xRatio\r\n\t\t\t\t#recursive implementation of the definition to process grouped inputs\r\n\t\t\t\taddinput(grouppanel,j.inputgroup,25*yRatio,xinput-25*xRatio,80 * xRatio,90 * xRatio,importcolorselection)\r\n\t\t\t\tformbody.Controls.Add(grouppanel)\r\n\t\t\t\ty = grouppanel.Bottom + 25 * yRatio\r\n\t\t\telif j.__class__.__name__ == 'uiconditional':\r\n\t\t\t\tgrouppanelcond = GroupBox()\r\n\t\t\t\tgrouppanelcond.Location = Point(xlabel,y)\r\n\t\t\t\tgrouppanelcond.Width = formbody.Width - 25*xRatio - 65 * xRatio\t\r\n\t\t\t\tform.output.append(grouppanelcond)\t\t\t\t\r\n\t\t\t\t#recursive implementation of the definition to process conditional groups of inputs\r\n\t\t\t\tpanlist = []\r\n\t\t\t\trblist = []\r\n\t\t\t\typ = 25 * yRatio\r\n\t\t\t\txrb = 25 * xRatio\r\n\t\t\t\tfor i,d in zip(j._Conditions,j._GroupedInputs): \r\n\t\t\t\t\trb = RadioButton()\r\n\t\t\t\t\trb.CheckedChanged += form.ActivateOption\r\n\t\t\t\t\trb.Text = i\r\n\t\t\t\t\trb.Location = Point(xrb,10*yRatio)\r\n\t\t\t\t\trb.Width = 95 * xRatio\r\n\t\t\t\t\trblist.append(rb)\t\t\t\t\t\r\n\t\t\t\t\tgrouppanelcond.Controls.Add(rb)\t\t\t\t\r\n\t\t\t\t\tcondition_pannel = Panel()\r\n\t\t\t\t\tcondition_pannel.Name = i\r\n\t\t\t\t\tcondition_pannel.Top = yp\r\n\t\t\t\t\tcondition_pannel.Width = formbody.Width - 25*xRatio - 65 * xRatio\r\n\t\t\t\t\tcondition_pannel.BackColor = Color.Transparent\r\n\t\t\t\t\tcondition_pannel.BringToFront()\t\t\t\t\t\r\n\t\t\t\t\taddinput(condition_pannel,d,25*yRatio,xinput-25*xRatio,80*xRatio,90*xRatio,importcolorselection)\r\n\t\t\t\t\tpanlist.append(condition_pannel)\r\n\t\t\t\t\typ = condition_pannel.Bottom - 25*yRatio\r\n\t\t\t\t\txrb += 100 * xRatio\r\n\t\t\t\tfor pan in panlist:\r\n\t\t\t\t\tgrouppanelcond.Controls.Add(pan)\r\n\t\t\t\tfor e,pan in enumerate(panlist):\r\n\t\t\t\t\tif e != j._defaultOptionIndex:\r\n\t\t\t\t\t\tpan.Enabled = False\r\n\t\t\t\t\telse:\r\n\t\t\t\t\t\tcontinue\r\n\t\t\t\trblist[j._defaultOptionIndex].Checked = True\r\n\t\t\t\tgrouppanelcond.Height = sum([p.Height for p in panlist]) - (len(panlist)-2)*25 * yRatio\r\n\t\t\t\tgrouppanelcond.BackColor = Color.Transparent\t\t\t\t\r\n\t\t\t\tformbody.Controls.Add(grouppanelcond)\r\n\t\t\t\tform.output.append([grouppanelcond.Tag])\t\t\t\t\r\n\t\t\t\ty = grouppanelcond.Bottom + 25*yRatio\r\n\t\t\tformbody.Height = y\r\n\r\n\r\n\t# process input lists \r\n\taddinput(body,inputtypes,0,IN[9],40 * xRatio ,IN[9] * xRatio,importcolorselection)\r\n\t\r\n\t#add the formbody panel to the form\r\n\tform.Controls.Add(body)\t\t\r\n\t\r\n\r\n\tif IN[6] != None:\r\n\t\tif IN[8] > 400 * yRatio:\r\n\t\t\tformy += 50 * yRatio\r\n\t\t\txinput = 270 * yRatio\r\n\t\telse:\r\n\t\t\tformy = logo.Bottom + 20 * yRatio\r\n\telse:\r\n\t\tformy += 50 * yRatio\r\n\r\n\r\n\r\n\t#Adding validation button\r\n\t\r\n\tbutton = Button()\r\n\tbutton.Text = IN[1]\r\n\tbutton.Width = formwidth - xinput - 40 * xRatio\r\n\tbutton.Height = 20 * yRatio\r\n\tbutton.Location = Point (xinput,formy)\r\n\tbutton.Click += form.setclose\r\n\tform.Controls.Add(button)\r\n\tform.MaximizeBox = False\r\n\tform.MinimizeBox = False\r\n\tform.FormBorderStyle = FormBorderStyle.FixedSingle\r\n\t\r\n\t#Adding Cancel button\r\n\tif IN[6] != None:\r\n\t\tcancelbutton = Button()\r\n\t\tcancelbutton.Text = IN[6]\r\n\t\tcancelbutton.Width = 120 * xRatio\r\n\t\tcancelbutton.Height = 20 * xRatio\r\n\t\tcancelbutton.Name = \"Cancel\"\r\n\t\tcancelbutton.Location = Point (xinput -120 * xRatio ,formy)\r\n\t\tcancelbutton.Click += form.setclose\r\n\t\tform.Controls.Add(cancelbutton)\r\n\t\tform.CancelButton = cancelbutton\r\n\t\r\n\t#Adding link to help\r\n\t\r\n\tif IN[5] != None :\r\n\t\thelplink = LinkLabel()\r\n\t\thelplink.Text = \"Help\"\r\n\t\thelplink.Tag = IN[5]\r\n\t\thelplink.Click += form.openurl\r\n\t\thelplink.Location = Point(formwidth - 65 * xRatio ,formy+30 * yRatio)\r\n\t\tform.Controls.Add(helplink)\r\n\telse:\r\n\t\tpass\t\r\n\t\t\t\r\n\tform.ShowIcon = True\r\n\tform.Width = formwidth\r\n\tform.Height = formy + 120 * yRatio\r\n\tformfooterheight = form.Height - formheaderheight\r\n\t\r\n\t# Make formbody scrollable\r\n\t\r\n\t# if the form is longer than its maximum height, do the following:\r\n\t# modify the form height\r\n\t# make the formbody panel scrollable\r\n\tif form.Height + body.Height > IN[7] * yRatio and IN[7] * yRatio > 0:\r\n\t\tformbody_calculatedheight = IN[7] * yRatio - form.Height\r\n\t\t# make sure the formbody is at least 100 px high\r\n\t\tif formbody_calculatedheight < 100 * yRatio: formbody_calculatedheight = 100 * yRatio\r\n\t\tbody.Height = formbody_calculatedheight\r\n\t\tform.Height = form.Height + formbody_calculatedheight\r\n\t\t# this (and apparently only this) will implement a vertical AutoScroll *only*\r\n\t\t# http://stackoverflow.com/a/28583501\r\n\t\tbody.HorizontalScroll.Maximum = 0\r\n\t\tbody.AutoScroll = False\r\n\t\tbody.VerticalScroll.Visible = False\r\n\t\tbody.AutoScroll = True\r\n\t\tbody.BorderStyle = BorderStyle.Fixed3D\r\n\telse:\r\n\t\tform.Height = form.Height + body.Height\r\n\t# Move footer elements\r\n\tlogo.Location = Point(logo.Location.X, logo.Location.Y + body.Height)\r\n\tbutton.Location = Point(button.Location.X, button.Location.Y + body.Height)\r\n\tif IN[6] != None: cancelbutton.Location = Point(cancelbutton.Location.X, cancelbutton.Location.Y + body.Height)\r\n\tif IN[5] != None: helplink.Location = Point(helplink.Location.X, helplink.Location.Y + body.Height)\r\n\r\n\t#Positionning the form at top left of current view\r\n\t#In The revit environment\r\n\ttry:\r\n\t\tuiviews = uidoc.GetOpenUIViews()\r\n\t\tif doc.ActiveView.IsValidType(doc.ActiveView.GetTypeId()):\r\n\t\t\tactiveviewid = doc.ActiveView.Id\r\n\t\t\tactiveUIView = [v for v in uiviews if v.ViewId == activeviewid][0]\r\n\t\telse:\r\n\t\t\tactiveUIView = uiviews[0]\r\n\t\trect = activeUIView.GetWindowRectangle()\r\n\t\tform.StartPosition = FormStartPosition.Manual\r\n\t\tform.Location = Point(rect.Left-7 * xRatio,rect.Top)\r\n\texcept:\r\n\t\tpass\r\n\t\r\n\t\t\r\n\tif IN[2]:\r\n\t\tif importcolorselection != 2:\r\n\t\t\tApplication.Run(form)\r\n\t\t\tresult = form.values\r\n\t\t\tOUT = result,True, form.cancelled \r\n\t\telse:\r\n\t\t\tOUT = ['ColorSelection input is only available With Revit 2017'] , False, False\r\n\telse :\r\n\t\tOUT = ['Set toggle to true!'] , False, False\r\nexcept:\r\n\timport traceback\r\n\tOUT = traceback.format_exc() , \"error\", \"error\"\r\n",
+      "Engine": "IronPython2",
+      "EngineName": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "4280a6b506664980b8fe0ff2067e8b34",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "9c3795d4bfa3463592b44df3441c48c0",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9aee524ae51f4528b3096cfba9a8fa14",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1d295ed00bb84631a0f113fa015597d7",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ce4e1662aa2a479eb2665e5893cf9e62",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a2f8ac2e107a4a2ea879d2b0412c4ff9",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bae574373b2b46c98df7251c022399af",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "33f7a19daa9c4cb2be89f57c9af4323d",
+          "Name": "IN[6]",
+          "Description": "Input #6",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3b2870632f644a9abf31b1a9dc58e72f",
+          "Name": "IN[7]",
+          "Description": "Input #7",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3c180b40d16a4edc95ac5c2b0b40618c",
+          "Name": "IN[8]",
+          "Description": "Input #8",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6f9f08e35b684763bb86cddcbda16832",
+          "Name": "IN[9]",
+          "Description": "Input #9",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0af032fdd3b04938a76e57a2bc5eb258",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "7c7ba28db0b44431852b12179ee76c05",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d2ed8650103d4b6a81e3101091c23174",
+          "Name": "",
+          "Description": "LinkToHelp_optional",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "LinkToHelp_optional: string = null;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "6ea845835f5a44259e8ad970f7991996",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f082f341a46443048cc82bf8fb08ee13",
+          "Name": "",
+          "Description": "MaxHeight_optional",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "MaxHeight_optional: int = 0;"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "3b6614fc73df4da79fb3bfef42865c63",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9791a12209f94cc6940d259ca1208dc4",
+          "Name": "",
+          "Description": "Logo_optional",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "Logo_optional: var = \"\";"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "89cbb2b7f9014380ba535ae742f71ae4",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "47eb6e943e0d4fb894b0f540b1aea60f",
+          "Name": "OUT",
+          "Description": "OUT",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b0bade4a72bb4212a4b9a648fc190912",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b91cade25aee44168494e1bfd30ab63e",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "21bb07c82cb8427285f24dd793e8a8eb",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "OUT[0];\nOUT[1];\nOUT[2];"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "d85685d32751435a89420b57b456e069",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8628b34c68e142b4815f3ed185624c77",
+          "Name": "",
+          "Description": "ButtonText_optional",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "ButtonText_optional: string = \"Set Values\";"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "d274784c9aff4ba6a46aa89222385dfe",
+      "End": "b7958c68705d45eb88a5bfa129e4feae",
+      "Id": "eb7775f8bb834dc88660defb84295e97",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d274784c9aff4ba6a46aa89222385dfe",
+      "End": "8de42523c1694c1586a2d6abddba9555",
+      "Id": "37f261ba562a4143b84b1047339c740a",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "1e1efa09cb0e4edc86ab89d18ef9395a",
+      "End": "ce4e1662aa2a479eb2665e5893cf9e62",
+      "Id": "e6097ced88ff4ad5a47a4b5ed19291ea",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f5bab12bb9f945328c4ea5d9a6ca2a14",
+      "End": "1d295ed00bb84631a0f113fa015597d7",
+      "Id": "e685e8d725264aff9010658b8c821141",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "cc870e7574784b078879d5a0ba3cd43c",
+      "End": "d3fe42c5f5a1463ca790475115ac2441",
+      "Id": "8bedb8ec08e1471d8abb92dee88dff1b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "45bfaa0455f24c5a971b6493ef450711",
+      "End": "3c180b40d16a4edc95ac5c2b0b40618c",
+      "Id": "b272f61c36df4601a32e3f30be2d1851",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8051a13100794a519ecc25d75a2148ac",
+      "End": "99e14b1919d94d738ce04ff66ddd2277",
+      "Id": "0925ec51e8074c2fb010c384af51167f",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9531cc44eff345f4a6b5d20d4bd4a7fc",
+      "End": "4f839fea745a46e288431f08d7f91662",
+      "Id": "c48cd3d72b7f4b638b5d94d1d69ff41f",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "6da56473ffc24470b50b6dc9cf856430",
+      "End": "be6a5fd40f9a4536ab772ed1f7afc63c",
+      "Id": "377782e07238459094207ac634e4cdae",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "1a71adabc63c4f05a5fc414ff4f888f1",
+      "End": "9c3795d4bfa3463592b44df3441c48c0",
+      "Id": "31ede5d46e0d40a7aca9792d3843e9b4",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4810285e7e5046a7806a173829275aba",
+      "End": "33f7a19daa9c4cb2be89f57c9af4323d",
+      "Id": "ad07a27c27764db98b6ab172089e77a5",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "988c19351da44dd0a7ffc5fb0940351c",
+      "End": "6f9f08e35b684763bb86cddcbda16832",
+      "Id": "7fb1a3c9406a492a99955729802b09b3",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2b8f96e0ffcb4946ab73a6c58c713e98",
+      "End": "fea3fe2eb226449ab62aea31fb6d3af2",
+      "Id": "8d504d7eeb4f4f4d81a956b720726e40",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2b8f96e0ffcb4946ab73a6c58c713e98",
+      "End": "5d4dc9f49b034b2188c2a35947fcc7a7",
+      "Id": "a0d741257d624bafb1db1b4a8d1c1542",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2b8f96e0ffcb4946ab73a6c58c713e98",
+      "End": "876612e5d716456a8260b921eff1cbf8",
+      "Id": "9093838be844466f84a0dfddaf48f8bf",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2b8f96e0ffcb4946ab73a6c58c713e98",
+      "End": "11ae00e0e0b0482eb3d15b628dd55fcf",
+      "Id": "2ce87e292edf4c70bfea498b9f0c717d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "e3b7e31d200b4bff8a16eb7e6b6f52ac",
+      "End": "6f61b76e67a44fb3b2a92cd7f9510f37",
+      "Id": "f8e1e61fd995462ba0b100978f437ba0",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "82e91a872d7444f6a28bc95e5b5091df",
+      "End": "14130772c41942538e752e1de82bba59",
+      "Id": "a968860842b044eebea9d50593168a97",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d959db0910184a7facc7255cfd0ac37d",
+      "End": "1c9dcb79b8cd48439f0f97b495e28f44",
+      "Id": "4e5d31ef8d35465e9b4f727ab50cf7ff",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "7a45c2280b8648c88dc8bfddf9728016",
+      "End": "4f6b6e79df43468d9ea686b10563e994",
+      "Id": "a79bf800e55340bcbc7822d55abf2a26",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "bf2390b7e1e04c9396dbaf2220d9aec6",
+      "End": "0d591c597b2e4795930467eb4981c7e3",
+      "Id": "1cf505471e6c46bfb7d30be71ae178d0",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d053a2fc11584d5bbd28184b3065f046",
+      "End": "1b98e49ae005411a943145316aa67dca",
+      "Id": "3c95526189bb430a96448fd7cc9c99f8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4ab9cfda824041249904d8acb191dfa1",
+      "End": "6b0b194e70aa4ac29308f46b2454150a",
+      "Id": "a07b4090a2514d8a80e322f9a6bcfa7a",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fbb89a51fefa4fd2bee46e9fb851d1d0",
+      "End": "2b3b0c01df18426caa221603ad6b432f",
+      "Id": "b1e196cb940c476b81bd150906983b49",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4cb928fe88084f119bcbeca936cddf1a",
+      "End": "058f3078e5ad4b3f8deb9e6c6de92911",
+      "Id": "eb78cfb8a0084f0db63b2ae8d4f3f340",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "a84cd0f38f8c461fbb5be0ff603fb731",
+      "End": "e6bd922e3bc9406fa6c6c97d01b9c63f",
+      "Id": "289037696b964085970aaa41f154ee78",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4e09a7c1929c49ab8703c64121104da6",
+      "End": "7e91cc8689354478be8665ee8b2490d4",
+      "Id": "aff176612fa944dabea4d85368e6238a",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "c8c27506417c4800a563a8d1ddf0c70b",
+      "End": "741a02eb24ec448e89c2afea6abe1208",
+      "Id": "94f16205814642658c76256646bdbe48",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b21c6c2a311249bf90070c987e65794f",
+      "End": "f86c3d18a93442eeb8052915ed0807b6",
+      "Id": "44778c2724bb4d3890c7c9e513622a48",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f44a14f61bfc4160a7d8d9fc90780e60",
+      "End": "de3eb3841eb3475c8dba524691342bd7",
+      "Id": "9e04a2f4b76f44d7a47b394e71ff93e2",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "300d5f3da5e64322bf367ad6917db67e",
+      "End": "bac8ad652ff041dbbdd3b0dd9eb00f40",
+      "Id": "f3845072d724417f921d5ee1400d9780",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0af032fdd3b04938a76e57a2bc5eb258",
+      "End": "47eb6e943e0d4fb894b0f540b1aea60f",
+      "Id": "47aaf4915e904a83b281ffa2389789d7",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d2ed8650103d4b6a81e3101091c23174",
+      "End": "bae574373b2b46c98df7251c022399af",
+      "Id": "12d8ef105ac64ea98943c1fb25501959",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f082f341a46443048cc82bf8fb08ee13",
+      "End": "3b2870632f644a9abf31b1a9dc58e72f",
+      "Id": "f45bdde701484a96bd6acdbf50cede07",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9791a12209f94cc6940d259ca1208dc4",
+      "End": "a2f8ac2e107a4a2ea879d2b0412c4ff9",
+      "Id": "fde4ce9027474d369f7dd81805308d8c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b0bade4a72bb4212a4b9a648fc190912",
+      "End": "693c68c0a1194438990e9cf72c94c688",
+      "Id": "c52867ef94ae440f8c26428c9c3485e7",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b0bade4a72bb4212a4b9a648fc190912",
+      "End": "745fa95aaea744f2a209c098f333ced8",
+      "Id": "a0a7b1dadd224a2eb7151bd8cae5fb93",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b0bade4a72bb4212a4b9a648fc190912",
+      "End": "a65d882cbc8a4a2e944ffc9c87e45029",
+      "Id": "b2e3fb1aab8440928caa2f32efd3f48d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "b0bade4a72bb4212a4b9a648fc190912",
+      "End": "bb8441e659d2495c8b60782e4e8e4f3c",
+      "Id": "dc95908341fa4a978acd6c673d72ff4d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8628b34c68e142b4815f3ed185624c77",
+      "End": "9aee524ae51f4528b3096cfba9a8fa14",
+      "Id": "05ed3fa6978e4a449d6d8e820cf67959",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.18",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "6.0",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.19.3.6394",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "982b59060e834af9bd927c8e7ac97b56",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.42812466041346,
+        "Y": 113.30726885313209
+      },
+      {
+        "Id": "946a6bef9c644d24a333886a0f264547",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": -347.228201169263
+      },
+      {
+        "Id": "0b043f9dcd094e079b8f7dcfdba8c237",
+        "Name": "Boolean",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": -496.0557011692631
+      },
+      {
+        "Id": "565c6bea521b4fbb94a8984051a7640b",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -340.46610322153856,
+        "Y": 266.87991234056233
+      },
+      {
+        "Id": "bec7bf6afd7a4755abda7e7232189a1b",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": 388.77179883073677
+      },
+      {
+        "Id": "fd6b77166188455e80e10f8d07e32cb8",
+        "Name": "Drawing Sheets",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -585.62421593118165,
+        "Y": 984.68687989521629
+      },
+      {
+        "Id": "991ad5de101f4cbaa9e9bf520c8ccb9e",
+        "Name": "Drawing Sheets Titles",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -609.44990840090225,
+        "Y": 836.40473521715217
+      },
+      {
+        "Id": "b2d30b81135c434daaa86920730efca2",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -476.51416393705165,
+        "Y": 1242.729684147534
+      },
+      {
+        "Id": "4c3db86f7e6a4c5e8c046facdcd69bb6",
+        "Name": "List Create",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1019.0281552885547,
+        "Y": -248.4667714088356
+      },
+      {
+        "Id": "33022d03f86e42579c62abb52d3e64cf",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": 94.771798830736884
+      },
+      {
+        "Id": "215bdfc6a164405a97de7ce0ab9328cd",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": 535.77179883073677
+      },
+      {
+        "Id": "fd61e053cb514fb5a9a4eb02fd473f5d",
+        "Name": "Boolean",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -857.54624803219826,
+        "Y": 574.52917447805066
+      },
+      {
+        "Id": "ed386a4b4ab6411ca2085d07d29dad90",
+        "Name": "Boolean",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -853.68533047041683,
+        "Y": 435.53614225392511
+      },
+      {
+        "Id": "ad04419825d34ef5bee7336422e2d1a3",
+        "Name": "Views",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 2540.9279313290235,
+        "Y": -535.69896949443034
+      },
+      {
+        "Id": "299acb5025e749f489c4a4bafae9bf06",
+        "Name": "Result:",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 2881.1423022743134,
+        "Y": -665.31001355580531
+      },
+      {
+        "Id": "56809fbda4d84d5ba18cee3ef2c6d0d2",
+        "Name": "Title Blocks",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 2541.8941493569932,
+        "Y": -365.73289676584625
+      },
+      {
+        "Id": "a1134277652f4ebab753a5c29ab6bb54",
+        "Name": "Result: (Sheet Number/ Scale/ Size)",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": true,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 3091.8439196667596,
+        "Y": -665.91569970729154
+      },
+      {
+        "Id": "a06a802a1eff4814a152d00721f50145",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -441.14082569903917,
+        "Y": -636.26828465146855
+      },
+      {
+        "Id": "5ffce05fa9ac480b9d4f46d05b3940de",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -865.34641298806491,
+        "Y": -496.20218171502756
+      },
+      {
+        "Id": "260c2a845901427d863410d93b4bb971",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -854.17764126257021,
+        "Y": -323.99300145479697
+      },
+      {
+        "Id": "1eefbb4ecf5e4a4ba596890b35a5e483",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -704.82194407383247,
+        "Y": -178.85614925131915
+      },
+      {
+        "Id": "637035ad8e5e4d4083e700d969750c54",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -644.9638519555532,
+        "Y": -28.20311190647044
+      },
+      {
+        "Id": "7613c0e44ede478e884a4a7ff94212d8",
+        "Name": "Python Script",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 499.72641316305635,
+        "Y": -354.45339456078818
+      },
+      {
+        "Id": "bbaceb05d2464024af92674ac79be41b",
+        "Name": "Python Script",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 523.76212872459712,
+        "Y": 1103.338459406081
+      },
+      {
+        "Id": "dace07ef2c884c1fb6d5a41f31ed7917",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -807.71997647144872,
+        "Y": 1484.2787208224263
+      },
+      {
+        "Id": "723d24bfeb2345ca9ce66ee43c8151db",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -619.07932500426159,
+        "Y": 1647.2045452628504
+      },
+      {
+        "Id": "cf27bac899164ea3b0db4a8ea5b77266",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -861.51264693134885,
+        "Y": 1359.429428044868
+      },
+      {
+        "Id": "80ff46ac9f4540c0b11f300794f7705d",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -615.85956826625579,
+        "Y": 1111.3233207651792
+      },
+      {
+        "Id": "4280a6b506664980b8fe0ff2067e8b34",
+        "Name": "Python Script",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1888.7715376885048,
+        "Y": -223.0557011692631
+      },
+      {
+        "Id": "7c7ba28db0b44431852b12179ee76c05",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": -53.228201169263
+      },
+      {
+        "Id": "6ea845835f5a44259e8ad970f7991996",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": 241.771798830737
+      },
+      {
+        "Id": "3b6614fc73df4da79fb3bfef42865c63",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": -200.228201169263
+      },
+      {
+        "Id": "89cbb2b7f9014380ba535ae742f71ae4",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 2162.7715376885048,
+        "Y": -223.0557011692631
+      },
+      {
+        "Id": "d85685d32751435a89420b57b456e069",
+        "Name": "Code Block",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1368.7715376885048,
+        "Y": -643.22820116926312
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "9215e649fbe749e0882828231eada53e",
+        "Title": "Title <Double click here to edit group title>",
+        "DescriptionText": "Description <Double click here to edit group description>",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "982b59060e834af9bd927c8e7ac97b56",
+          "565c6bea521b4fbb94a8984051a7640b",
+          "a06a802a1eff4814a152d00721f50145",
+          "5ffce05fa9ac480b9d4f46d05b3940de",
+          "260c2a845901427d863410d93b4bb971",
+          "1eefbb4ecf5e4a4ba596890b35a5e483",
+          "637035ad8e5e4d4083e700d969750c54",
+          "7613c0e44ede478e884a4a7ff94212d8"
+        ],
+        "HasNestedGroups": false,
+        "Left": -875.34641298806491,
+        "Top": -708.66828465146853,
+        "Width": 1559.4728261511214,
+        "Height": 1107.3481969920308,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": -636.26828465146855,
+        "InitialHeight": 1048.148196992031,
+        "TextblockHeight": 62.4,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "828352a1e690422d8b13cc11b6ea36ea",
+        "Title": "Title <Double click here to edit group title>",
+        "DescriptionText": "Description <Double click here to edit group description>",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "fd6b77166188455e80e10f8d07e32cb8",
+          "991ad5de101f4cbaa9e9bf520c8ccb9e",
+          "b2d30b81135c434daaa86920730efca2",
+          "bbaceb05d2464024af92674ac79be41b",
+          "dace07ef2c884c1fb6d5a41f31ed7917",
+          "723d24bfeb2345ca9ce66ee43c8151db",
+          "cf27bac899164ea3b0db4a8ea5b77266",
+          "80ff46ac9f4540c0b11f300794f7705d"
+        ],
+        "HasNestedGroups": false,
+        "Left": -871.51264693134885,
+        "Top": 764.00473521715219,
+        "Width": 1579.674775655946,
+        "Height": 1014.9998100456982,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 836.40473521715217,
+        "InitialHeight": 955.79981004569822,
+        "TextblockHeight": 62.4,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "2cd00e763670475795e472a049ca4f64",
+        "Title": "Title <Double click here to edit group title>",
+        "DescriptionText": "Description <Double click here to edit group description>",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "946a6bef9c644d24a333886a0f264547",
+          "0b043f9dcd094e079b8f7dcfdba8c237",
+          "bec7bf6afd7a4755abda7e7232189a1b",
+          "33022d03f86e42579c62abb52d3e64cf",
+          "215bdfc6a164405a97de7ce0ab9328cd",
+          "4280a6b506664980b8fe0ff2067e8b34",
+          "7c7ba28db0b44431852b12179ee76c05",
+          "6ea845835f5a44259e8ad970f7991996",
+          "3b6614fc73df4da79fb3bfef42865c63",
+          "89cbb2b7f9014380ba535ae742f71ae4",
+          "d85685d32751435a89420b57b456e069"
+        ],
+        "HasNestedGroups": false,
+        "Left": 1358.7715376885048,
+        "Top": -715.62820116926309,
+        "Width": 999.59999999999991,
+        "Height": 1383.1999999999998,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": -643.22820116926312,
+        "InitialHeight": 1324.0,
+        "TextblockHeight": 62.4,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -2317.4522749289526,
+    "Y": 745.05662230316852,
+    "Zoom": 0.96649205365024682
+  }
+}
